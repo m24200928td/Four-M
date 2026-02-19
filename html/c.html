@@ -1,0 +1,265 @@
+{% extends "./layout.html" %}
+
+{% block head %}
+  {% include './../../dukaan/common/page-imports/category-page-imports.html' %}
+  {{ 'advance-filter.css' | css | static }}
+  {{ 'category.css' | css | static }}
+
+  <!-- Premium Custom Styles for Consistency -->
+  <style>
+    :root {
+      --brand-color: #005f6b;
+      --bg-light: #f8f9fa;
+      --border-radius: 12px;
+    }
+
+    /* 1. Banner Spacing */
+    .container.hide-on-mobile, .container.hide-on-desktop {
+      margin-bottom: 20px;
+    }
+
+    /* 2. Sorting Bar Design */
+    .shop-category-sorting {
+      background: #fff;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
+    }
+    .shop-sort-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .second-heading {
+      font-size: 24px;
+      color: #1a181e;
+      margin: 0;
+      font-weight: 700;
+    }
+    .sort-lable {
+      font-size: 14px;
+      font-weight: 500;
+      margin-right: 10px;
+      color: #666;
+    }
+    /* Modern Sort Button */
+    .sort-btn-toggle {
+      border: 1px solid #ddd;
+      background: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #333;
+      transition: 0.3s;
+    }
+    .sort-btn-toggle:hover, .sort-btn-toggle.active {
+      border-color: var(--brand-color);
+      color: var(--brand-color);
+    }
+    .sort-price-dropdown {
+      display: none; /* Hidden by default */
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background: #fff;
+      width: 200px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 10;
+      border: 1px solid #eee;
+      padding: 5px 0;
+    }
+    .sort-price-dropdown.show {
+      display: block; /* Show class added by JS */
+    }
+    .sort-price-dropdown button {
+      width: 100%;
+      text-align: left;
+      padding: 10px 15px;
+      background: none;
+      border: none;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+      transition: 0.2s;
+    }
+    .sort-price-dropdown button:hover {
+      background: var(--bg-light);
+      color: var(--brand-color);
+      padding-left: 20px; /* Slide effect */
+    }
+    .sort-price-dropdown button.selected {
+      color: var(--brand-color);
+      font-weight: 700;
+    }
+
+    /* 3. Product Grid Consistency */
+    .advance-filter__product-card {
+      border: 1px solid #eee !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #fff;
+    }
+    .advance-filter__product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      border-color: var(--brand-color) !important;
+    }
+
+    /* 4. Breadcrumb Cleanup */
+    .breadcrumb-inner {
+      padding: 10px 0;
+      font-size: 13px;
+    }
+    .breadcrumb-item a {
+      color: #666;
+      text-decoration: none;
+    }
+    .breadcrumb-item a:hover {
+      color: var(--brand-color);
+    }
+    .breadcrumb-item.active span {
+      color: var(--brand-color);
+      font-weight: 600;
+    }
+  </style>
+{% endblock head %}
+
+{% block content %}
+  <!-- Banner Section -->
+  <div class="container hide-on-mobile">
+    {% include './../../dukaan/common/category-banner.html' %}
+  </div>
+
+  <!-- Breadcrumb -->
+  <section class="breadcrumb-section hide-small-device">
+    <div class="container">
+      <ol class="breadcrumb-inner" style="list-style: none; display: flex; gap: 8px; padding: 0; margin: 0;">
+        <li class="breadcrumb-item">
+          <a href="{{ DUKAAN_BASE_URL or '/' }}">{{ DUKAAN_LANGUAGE.HOME }}</a>
+        </li>
+        <li style="color: #ccc;">/</li>
+        <li class="breadcrumb-item">
+          <a href="{{ DUKAAN_BASE_URL }}/categories">{{ DUKAAN_LANGUAGE.SHOP }}</a>
+        </li>
+        <li style="color: #ccc;">/</li>
+        <li class="breadcrumb-item active">
+          <span>{{ DUKAAN_CATEGORY.name }}</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Sorting Section -->
+  <section class="shop-category-sorting">
+    <div class="container">
+      <div class="shop-sort-inner">
+        <!-- Title (Desktop) -->
+        <h2 class="second-heading hide-small-device">
+          {{ DUKAAN_CATEGORY.name }}
+          <span class="advance-filter__product-count" style="font-size: 16px; font-weight: 400; color: #888; margin-left: 10px;"></span>
+        </h2>
+
+        <!-- Back Button (Mobile) -->
+        <a href="{{ DUKAAN_BASE_URL }}/categories" class="back-arrow hide-on-desktop" style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: #333; font-weight: 600;">
+          <svg class="icon" width="20" height="20" style="fill: var(--brand-color);">
+            <use xlink:href="/assets/icons.svg#left"></use>
+          </svg>
+          <span>{{ DUKAAN_CATEGORY.name }}</span>
+        </a>
+
+        <!-- Sort Dropdown -->
+        <div id="sort" class="sort-btn-group" style="position: relative;">
+          <label class="sort-lable hide-small-device">{{ DUKAAN_LANGUAGE.SORT_BY }}:</label>
+          <button type="button" class="sort-btn-toggle btn" onclick="">
+            <span class="sort-label-text"></span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="sort-price-dropdown">
+            <button type="button" value="bestsellers" onclick="sortByClickHandler('bestsellers', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.FEATURED }}
+            </button>
+            <button type="button" value="better_discount" onclick="sortByClickHandler('better_discount', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.DISCOUNT }}
+            </button>
+            <button type="button" value="price_low_to_high" onclick="sortByClickHandler('price_low_to_high', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.PRICE_LOW_TO_HIGH }}
+            </button>
+            <button type="button" value="price_high_to_low" onclick="sortByClickHandler('price_high_to_low', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.PRICE_HIGH_TO_LOW }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Banner -->
+  <div class="container hide-on-desktop">
+    {% include './../../dukaan/common/category-banner.html' %}
+  </div>
+
+  <!-- Subcategories Slider -->
+  <section class="container mana-scrollable-subcategories" style="margin-bottom: 30px;">
+    <div id="dkn-slider-outer-container">
+      {% include '../../dukaan/common/components/scrollable-subcategories.html' %}
+    </div>
+  </section>
+
+  <!-- Templates -->
+  {% include './advanced-category-templates.html' %}
+
+  <!-- Main Content: Filters & Products -->
+  <!-- FIXED: Class name typo 'categori' to 'categories' -->
+  <section class="seller-section shop-categories-detail">
+    <div class="container flex">
+      
+      <!-- Sidebar (Filters) -->
+      <advanced-filters class="advance-filter__action-wrapper" style="width: 250px; flex-shrink: 0; margin-right: 20px;"></advanced-filters>
+      
+      <!-- Products Area -->
+      <div class="advance-filter__cards-wrapper" style="flex-grow: 1;">
+        <!-- Active Tags -->
+        <filter-tags class="advance-filter__tags"></filter-tags>
+        
+        <!-- Product Cards -->
+        <category-cards class="advance-filter__cards-container">
+          {% for i in range(0,6) %}
+            <div class="advance-filter__product-card">
+              <div class="shimmer advance-filter__card-img--shimmer"></div>
+              <div class="shimmer advance-filter__card-title--shimmer"></div>
+            </div>
+          {% endfor %}
+        </category-cards>
+        
+        <!-- Pagination -->
+        <pagination class="advance-filter__pagination-wrapper" style="margin-top: 30px;"></pagination>
+      </div>
+    </div>
+    
+    <!-- Bottom Filter (Mobile maybe?) -->
+    {% include '../../dukaan/common/advance-category-filter.html' %}
+  </section>
+
+  <!-- SEO Description -->
+  {% include './../../dukaan/common/category-description.html' %}
+
+{% endblock content %}
+
+{% block script %}
+  <script>
+    document
+      .querySelector('[data-button="{{ DUKAAN_CATEGORY.slug }}"]')
+      ?.classList.add("active");
+  </script>
+  {{ 'splide.min.js' | js | static }}
+  {{ 'category.js' | js | static }}
+  <!-- Lottie Removed for Performance -->
+{% endblock script %}

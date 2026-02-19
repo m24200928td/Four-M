@@ -1,0 +1,9 @@
+.menu-sticky-inner a.home-bottom{
+  color: var(--primary);
+}
+.home-white, .shop-active{
+  display: none;
+}
+.home-active, .shop-white{
+  display: block;
+}

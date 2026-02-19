@@ -1,0 +1,14 @@
+{% macro menuDropDown(menuItems) %}
+<ul class="row d-none">
+
+  {% for menu in menuItems.child %}
+    <li class="col-3 mb-3">
+      <a class="sub-body link-text"
+         href="{{ DUKAAN_BASE_URL }}{{ menu.url }}"
+         style="color: var(--black-12)">
+        {{ menu.label }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+{% endmacro %}

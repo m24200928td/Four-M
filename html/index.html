@@ -1,0 +1,406 @@
+{% extends "./layout.html" %}
+
+{% block head %}
+  {% include './../../dukaan/common/page-imports/home-page-imports.html' %}
+  
+  <!-- Premium Custom Styles for Homepage -->
+  <style>
+    :root {
+      --brand-color: #005f6b;
+      --card-radius: 12px;
+    }
+
+    /* Menu Active State */
+    .menu-sticky-inner a.home-bottom {
+      color: var(--brand-color);
+    }
+    
+    .home-white, .shop-active { display: none; }
+    .home-active, .shop-white { display: block; }
+
+    /* Slider Visibility */
+    .splide { visibility: visible !important; }
+    .splide__pagination { bottom: 32px !important; }
+    
+    @media only screen and (max-width: 767px) {
+      .coupons-list-mobile { min-height: 76px; }
+      .splide__pagination { bottom: 16px !important; }
+    }
+
+    /* 1. Top Categories Grid Layout (Matches Categories Page) */
+    .categories-box-main {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Mobile: 2 cols */
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .categories-box-main {
+        grid-template-columns: repeat(4, 1fr); /* PC: 4 cols */
+        gap: 24px;
+      }
+    }
+
+    /* Category Card Styling */
+    .categories-box {
+      background: #fff;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: #1a181e;
+      border: 1px solid #eee;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .categories-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 95, 107, 0.15);
+      border-color: var(--brand-color);
+    }
+    .categories-img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      background: #f5f5f5;
+      overflow: hidden;
+    }
+    .categories-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .categories-box:hover .categories-img img {
+      transform: scale(1.05);
+    }
+    .categories-box-caption {
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #f0f0f0;
+    }
+    .categories-box-caption svg {
+      color: var(--brand-color);
+      opacity: 0.6;
+      transition: 0.3s;
+    }
+    .categories-box:hover .categories-box-caption svg {
+      opacity: 1;
+      transform: translateX(5px);
+    }
+    .categories-box-caption h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 2. Product Cards (Best Seller Section) - Matching Category Page */
+    .seller-box {
+      border-radius: var(--card-radius) !important;
+      border: 1px solid #eee !important;
+      overflow: hidden;
+      background: #fff;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 0 !important; /* Reset padding */
+      height: 100%;
+    }
+    .seller-box:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      border-color: #ddd !important;
+    }
+    .seller-img {
+      border-radius: 0 !important;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      background: #f9f9f9;
+      aspect-ratio: 1/1; /* Keep image square */
+    }
+    .seller-box-caption {
+      padding: 12px;
+      border-top: 1px solid #f0f0f0;
+      text-align: left;
+    }
+    .seller-box-caption h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 42px; /* Fixed height for consistency */
+    }
+    .seller-box-caption h4 {
+      font-size: 16px;
+      color: var(--brand-color);
+      font-weight: 700;
+      margin: 0;
+    }
+    .price-line {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 13px;
+      margin-left: 5px;
+      font-weight: 400;
+    }
+    .price-off {
+      color: #e53935;
+      font-size: 12px;
+      margin-left: 5px;
+      font-weight: 500;
+    }
+    .btn-primary {
+      background-color: var(--brand-color);
+      border-color: var(--brand-color);
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .btn-primary:hover {
+      background-color: #004e58; /* Darker shade */
+    }
+  </style>
+
+  <!-- Preload Images -->
+  {% if DUKAAN_WEB_BANNERS.length > 0 %}
+    <link rel="preload" as="image" href="{{ DUKAAN_WEB_BANNERS[0].image | cdn(1400) }}"/>
+  {% endif %}
+  {% if DUKAAN_MOBILE_BANNERS.length > 0 %}
+    <link rel="preload" as="image" href="{{ DUKAAN_MOBILE_BANNERS[0].image | cdn(800) }}"/>
+  {% endif %}
+  {% for product in DUKAAN_CATALOG[0].products %}
+    {% if loop.index0 < 1 %}<link rel="preload" as="image" href="{{ product.image | cdn(700) }}"/>{% endif %}
+  {% endfor %}
+{% endblock head %}
+
+{% block content %}
+  {% if DUKAAN_WEB_BANNERS.length > 0 %}
+    <div class="hide-mob">
+      <section class="home-banner">
+        <section class="splide" id="splide-banners">
+          <div class="splide__track">
+            <ul class="splide__list">
+              {% for banner in DUKAAN_WEB_BANNERS %}
+                <li class="splide__slide">
+                  {% if banner.url %}
+                    <a href="{{ banner.url }}" target="{{ banner.url | getTargetForBannerLinks(DUKAAN_CURRENT_PAGE_HOST) }}">
+                  {% endif %}
+                    <img src="{{ banner.image | cdn(1440) }}" alt="Banner {{ loop.index }}" onerror="imageOnError(event)"/>
+                  {% if banner.url %}</a>{% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </section>
+      </section>
+    </div>
+  {% endif %}
+
+  {% if DUKAAN_MOBILE_BANNERS.length > 0 %}
+    <div class="hide-desk">
+      <section class="home-banner">
+        <section class="splide" id="splide-banners-mobile">
+          <div class="splide__track">
+            <ul class="splide__list">
+              {% for banner in DUKAAN_MOBILE_BANNERS %}
+                <li class="splide__slide">
+                  {% if banner.url %}
+                    <a href="{{ banner.url }}" target="{{ banner.url | getTargetForBannerLinks(DUKAAN_CURRENT_PAGE_HOST) }}">
+                  {% endif %}
+                    <img src="{{ banner.image | cdn(800) }}" alt="Mobile Banner {{ loop.index }}" onerror="imageOnError(event)"/>
+                  {% if banner.url %}</a>{% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </section>
+      </section>
+    </div>
+  {% endif %}
+
+  {% if DUKAAN_CATALOG_PROPS.catalogLength === 0 %}
+    {% include './../../dukaan/common/no-product-found.html' %}
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-player/1.7.1/lottie-player.js"></script>
+  {% else %}
+    
+    <!-- Coupons -->
+    {% if DUKAAN_STORE.has_coupons %}
+      <section>
+        <mobile-coupons></mobile-coupons>
+      </section>
+    {% endif %}
+
+    <!-- Top Categories Section -->
+    <section class="categories-section all-categories" id="top-categories-container" style="padding: 40px 0;">
+      <div class="container">
+        <div class="categories-inner">
+          <h2 class="second-heading" style="font-size: 28px; margin-bottom: 30px; font-weight: 700; text-align: center;">{{ DUKAAN_LANGUAGE.TOP_CATEGORIES }}</h2>
+          
+          <div class="categories-box-main">
+            {% set catalogCounter = 0 %}
+            {% for category in DUKAAN_CATEGORY_LIST %}
+              {% if (category | isParentCategory) %}
+                {% set catalogCounter = catalogCounter + 1 %}
+                {% if catalogCounter < 7 %}
+                  <a href="{{ category | getCategoryCardLink(DUKAAN_BASE_URL) }}" class="categories-box" aria-label="{{ category.name }}">
+                    <div class="categories-img">
+                      <img loading="lazy" onerror="imageOnError(event)" src="{{ category.image | cdn(500) }}" alt="{{ category.name }}"/>
+                    </div>
+                    <div class="categories-box-caption">
+                      <h3 class="lineClamp">{{ category.name }}</h3>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </div>
+                  </a>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          
+          {% if catalogCounter >= 7 %}
+            <div class="seller-view-all" style="text-align: center; margin-top: 30px;">
+              <a href="{{ DUKAAN_BASE_URL }}/categories/" type="button" class="btn-view-all" style="background: var(--brand-color); color: #fff; padding: 10px 30px; border-radius: 30px; text-decoration: none;">{{ DUKAAN_LANGUAGE.VIEW_ALL }}</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
+    <!-- Best Seller Section -->
+    <section class="seller-section bestseller-section" style="padding: 40px 0;">
+      <div class="container">
+        <div class="best-seller-wrapper">
+          <best-seller-load-point>
+            {% for category in DUKAAN_CATALOG %}
+              {% if (category | getCategoryHasProducts) %}
+                {% if category.products.length > 0 %}
+                  <div class="seller-inner" style="margin-bottom: 50px;">
+                    <h2 class="second-heading ellipsis" style="font-size: 24px; margin-bottom: 20px; font-weight: 700; color: #333;">
+                      {{ category.name }}
+                    </h2>
+                    
+                    <div class="seller-box-main" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                      {% for product in category.products %}
+                        {% if loop.index0 < 8 %}
+                          <div class="seller-box flex d-column j-sb">
+                            <div class="flex d-column">
+                              <div class="relative">
+                                <a href="{{ DUKAAN_BASE_URL }}/products/{{ product.slug }}">
+                                  <div class="seller-img product-card-image-container">
+                                    {% if product.all_images.length > 1 %}
+                                      <section class="splide dkn-product-card-image-carousel-wrapper" id="splide-product-card-images-{{ loop.index }}">
+                                        <div class="splide__track">
+                                          <ul class="splide__list dkn-product-card-image-carousel">
+                                            {% for image in product.all_images %}
+                                              <li class="splide__slide">
+                                                <img loading="lazy" src="{{ image | cdn(700) }}" class="product-splide-image dkn-product-card-image-carousel-item" alt="{{ product.name }}" onerror="imageOnError(event)"/>
+                                              </li>
+                                            {% endfor %}
+                                          </ul>
+                                        </div>
+                                        <div class="splide-progress-bar dkn-product-card-image-carousel-progress-bar"></div>
+                                      </section>
+                                    {% else %}
+                                      <div class="dkn-product-card-only-image-wrapper">
+                                        <img loading="lazy" src="{{ product.image | cdn(700) }}" id="product-card-images" class="dkn-product-card-image" alt="{{ product.name }}" onerror="imageOnError(event)"/>
+                                      </div>
+                                    {% endif %}
+                                    <div class="dkn-product-card-bxgy-badge bxgy-badge-booster hidden" data-product-id="{{ product.id }}" data-product-uuid="{{ product.uuid }}"></div>
+                                  </div>
+                                </a>
+                                <wishlist-button-load-point data-product-uuid="{{ product.uuid }}" data-template-id="heart-wishlist-button-template" data-add-event="HOME_PAGE_WISHLIST_ADDED" class="hidden">
+                                  <button disabled type="button" data-wishlist-button-state="unselected" aria-label="Add to Wishlist">
+                                    <div class="wishlist-svg-wrapper">
+                                      <svg width="20" height="17"><use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use></svg>
+                                    </div>
+                                  </button>
+                                </wishlist-button-load-point>
+                              </div>
+                              <a href="{{ DUKAAN_BASE_URL }}/products/{{ product.slug }}" style="text-decoration: none; color: inherit;">
+                                <div class="seller-box-caption">
+                                  <h3>{{ product.name }}</h3>
+                                  {% if product.in_stock %}
+                                    <h4>
+                                      {{ product.selling_price | formatMoney(DUKAAN_STORE) }}
+                                      <span class="price-line {% if product.original_price === product.selling_price %} hidden {% endif %}">
+                                        {{ product.original_price | formatMoney(DUKAAN_STORE) }}
+                                      </span>
+                                      {% set discount = (((product.original_price - product.selling_price) / product.original_price) * 100).toFixed(0) %}
+                                      {% if discount > 0 %}
+                                        <span class="price-off">({{ discount }}% OFF)</span>
+                                      {% endif %}
+                                    </h4>
+                                  {% else %}
+                                    <h4 class="out-of-stock-label" style="color: #999; font-size: 14px;">Sold Out</h4>
+                                  {% endif %}
+                                </div>
+                              </a>
+                            </div>
+                            {% if DUKAAN_THEME_DATA.meta.advanced.product.showAddToBagOnProductCard %}
+                              <div style="padding: 0 12px 12px 12px; margin-top: auto;">
+                                <add-to-bag-button-with-variants data-product-uuid="{{ product.uuid }}" data-add-event="HOME_PAGE_PRODUCT_ADDED">
+                                  <div class="add-to-bag-button-wrapper">
+                                    <button class="without-cart-add-to-bag-button btn-primary" style="width: 100%; padding: 10px;">{{ DUKAAN_LANGUAGE.ADD_TO_BAG }}</button>
+                                  </div>
+                                </add-to-bag-button-with-variants>
+                              </div>
+                            {% endif %}
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                    
+                    {% if category.products.length > 8 %}
+                      <div class="seller-view-all" style="text-align: center; margin-top: 20px;">
+                        <a type="button" class="btn-view-all" href="{{ DUKAAN_BASE_URL }}/categories/{{ category.slug }}?category_ids={{ category.id }}" style="background: transparent; color: var(--brand-color); border: 1px solid var(--brand-color); padding: 8px 24px; border-radius: 30px; text-decoration: none;">
+                          {{ DUKAAN_LANGUAGE.VIEW_ALL }}
+                        </a>
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </best-seller-load-point>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    {% if DUKAAN_THEME_DATA.meta.sections.testimonials.isActive %}
+      <section class="testimonial-section" style="padding: 40px 0; background: #f9f9f9;">
+        <div class="container">
+          <div class="testimonial-inner">
+            <h2 class="second-heading" style="text-align: center; margin-bottom: 30px; color: var(--brand-color);">{{ DUKAAN_LANGUAGE.OUR_CUSTOMERS_LOVE_US }}!</h2>
+            <div class="testimonials-list container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+              {% for testimonial in DUKAAN_THEME_DATA.meta.sections.testimonials.list %}
+                <div class="testimonial-box" style="background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+                  <p style="font-style: italic; color: #555; margin-bottom: 15px;">"{{ testimonial.customerReview }}"</p>
+                  <h4 style="margin: 0; color: var(--brand-color); font-weight: 600;">- {{ testimonial.customerName }}</h4>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
+
+    {% include './../../dukaan/common/coupons-mobile.html' %}
+    {% include './../../dukaan/common/coupons-offers-drawer.html' %}
+  {% endif %}
+{% endblock content %}
+
+{% block script %}
+  <script>
+    document.querySelector('[data-button="home"]')?.classList.add('active');
+  </script>
+  {{ 'home.js' | js | static({ defer: true }) }}
+  {{ 'splide.min.js' | js | static }}
+{% endblock script %}

@@ -1,0 +1,233 @@
+{% extends "./layout.html" %}
+
+{% block head %}
+  {% include './../../dukaan/common/seo_tags/categoriesSeoTags.html' %}
+  {{ 'categories.css' | css | static }}
+
+  <!-- Custom Styles for Premium Look -->
+  <style>
+    :root {
+      --brand-color: #005f6b; /* Your Brand Color */
+      --text-color: #1a181e;
+      --bg-light: #f5f5f5;
+      --card-radius: 12px; /* Rounded Corners */
+    }
+
+    /* Grid Layout: Phone (2 cols) -> PC (4 cols) */
+    .categories-grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Mobile: 2 items per row */
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    @media (min-width: 768px) {
+      .categories-grid-container {
+        grid-template-columns: repeat(4, 1fr); /* PC: 4 items per row */
+        gap: 24px;
+      }
+    }
+
+    /* Category Card Styling */
+    .category-card {
+      background: #fff;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--text-color);
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: 100%; /* Ensure equal height cards */
+    }
+
+    /* Hover Effect: Lift & Shadow */
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 95, 107, 0.15); /* Brand Color Shadow */
+      border-color: var(--brand-color);
+    }
+
+    .category-image-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1; /* Square Image */
+      background-color: var(--bg-light);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .category-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures image doesn't stretch */
+      transition: transform 0.5s ease;
+    }
+
+    .category-card:hover .category-image {
+      transform: scale(1.05); /* Zoom effect on image */
+    }
+
+    .category-content {
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #f0f0f0;
+      background: #fff;
+      position: relative;
+      z-index: 2;
+      flex-grow: 1;
+    }
+
+    .category-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text-color);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 80%;
+    }
+
+    .arrow-icon {
+      color: var(--brand-color);
+      opacity: 0.6;
+      transition: 0.3s;
+      flex-shrink: 0;
+    }
+
+    .category-card:hover .arrow-icon {
+      opacity: 1;
+      transform: translateX(5px);
+    }
+
+    /* Shimmer Effect */
+    .shimmer {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: shimmer-loading 1.5s infinite;
+    }
+    @keyframes shimmer-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* No Categories Found - CSS Animation */
+    .empty-state-container {
+      text-align: center;
+      padding: 50px 20px;
+      color: #888;
+    }
+    .empty-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      color: #ccc;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+{% endblock head %}
+
+{% block content %}
+  <!-- Breadcrumb -->
+  <section class="breadcrumb-section hide-small-device" style="background: #fff; padding: 15px 0; border-bottom: 1px solid #eee;">
+    <div class="container">
+      <ol class="breadcrumb-inner" style="list-style: none; display: flex; gap: 10px; font-size: 14px; color: #666;">
+        <li class="breadcrumb-item">
+          <a href="{{ DUKAAN_BASE_URL or '/' }}" style="text-decoration: none; color: #666;">{{ DUKAAN_LANGUAGE.HOME }}</a>
+        </li>
+        <li style="color: #ccc;">/</li>
+        <li class="breadcrumb-item active" style="color: var(--brand-color); font-weight: 600;">{{ DUKAAN_LANGUAGE.SHOP }}</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <!-- Note: Added 'shop-categories' class for CSS targeting -->
+  <section class="categories-section shop-categories main-categories-container" style="padding: 40px 0;">
+    <div class="container">
+      <div class="categories-inner">
+        <h2 class="second-heading" style="font-size: 28px; margin-bottom: 30px; color: var(--text-color); text-align: center; font-weight: 700;">{{ DUKAAN_LANGUAGE.SHOP }}</h2>
+        
+        <!-- Categories Container (Target for JS) -->
+        <categories-list-template class="categories-grid-container">
+          
+          <!-- Shimmer Loading State (8 Items) -->
+          {% for i in range(0,8) %}
+            <div class="shimmer-card">
+              <div class="category-image-wrapper shimmer"></div>
+              <div class="category-content">
+                <div style="height: 16px; width: 70%; border-radius: 4px;" class="shimmer"></div>
+                <div style="height: 16px; width: 16px; border-radius: 4px;" class="shimmer"></div>
+              </div>
+            </div>
+          {% endfor %}
+
+        </categories-list-template>
+      </div>
+    </div>
+  </section>
+
+  <!-- No Categories Found (Hidden by default) -->
+  <div class="hidden" id="no-categories-found">
+    <div class="empty-state-container">
+      <!-- SVG Icon (Lightweight Animation) -->
+      <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+      </svg>
+      <h3>{{ DUKAAN_LANGUAGE.NO_CATEGORIES_FOUND | default("No Categories Found") }}</h3>
+      <p>Try adjusting your filters or check back later.</p>
+    </div>
+  </div>
+
+  <!-- Templates for JavaScript Injection -->
+  
+  <!-- 1. Actual Card Template -->
+  <template id="category-card-template">
+    <a class="category-card" href="" aria-label="View category">
+      <div class="category-image-wrapper">
+        <img loading="lazy"
+             class="category-image"
+             src=""
+             alt="Category Image"
+             onerror="this.src='https://via.placeholder.com/300?text=No+Image'; this.onerror=null;"/>
+      </div>
+      <div class="category-content">
+        <h3 class="category-name ellipsis"></h3>
+        <!-- Arrow Icon -->
+        <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </a>
+  </template>
+
+  <!-- 2. Shimmer Template (For dynamic loading) -->
+  <template id="categories-card-shimmer">
+    <div class="shimmer-card">
+      <div class="category-image-wrapper shimmer"></div>
+      <div class="category-content">
+        <div style="height: 16px; width: 70%; border-radius: 4px;" class="shimmer"></div>
+        <div style="height: 16px; width: 16px; border-radius: 4px;" class="shimmer"></div>
+      </div>
+    </div>
+  </template>
+
+{% endblock content %}
+
+{% block script %}
+  <script>
+    // Highlight Active Menu
+    document.querySelector('[data-button="categories"]')?.classList.add('active');
+  </script>
+  {{ 'categories.js' | js | static }}
+  <!-- Removed Lottie to increase speed -->
+{% endblock script %}

@@ -1,0 +1,99 @@
+<template id="dkn-size-variant-item-template">
+  <div class="dkn-size-variant-item">
+    <input class="dkn-variant-input d-none hidden"
+           type="radio"
+           name="size"/>
+    <label class="dkn-variant-label d-flex flex-column">
+      <div class="dkn-size-variant-value white-space-normal"></div>
+    </label>
+  </div>
+</template>
+<template id="dkn-color-variant-item-template">
+  <div class="dkn-color-variant-item">
+    <input class="dkn-variant-input d-none hidden"
+           type="radio"
+           name="color"/>
+    <label class="dkn-variant-label">
+      <div class="dkn-color-variant-bg-color d-flex flex-row align-items-center justify-content-center">
+        <svg class="dkn-color-variant-tick-svg"
+             xmlns="http://www.w3.org/2000/svg"
+             width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             color="#ffffff">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+          d="M21.0607 4.93934C21.6464 5.52513 21.6464 6.47487 21.0607 7.06066L10.0607 18.0607C9.47487 18.6464 8.52513 18.6464 7.93934 18.0607L2.93934 13.0607C2.35355 12.4749 2.35355 11.5251 2.93934 10.9393C3.52513 10.3536 4.47487 10.3536 5.06066 10.9393L9 14.8787L18.9393 4.93934C19.5251 4.35355 20.4749 4.35355 21.0607 4.93934Z"
+          fill="currentColor" />
+        </svg>
+      </div>
+    </label>
+  </div>
+</template>
+<template id="dkn-variant-section-template">
+  <div class="dkn-variant-section d-flex flex-column variant-type-section">
+    <div class="dkn-variant-section-heading variant-type-label"></div>
+    <div class="dkn-variant-section-list d-flex flex-row flex-wrap"></div>
+  </div>
+</template>
+<template id="dkn-addon-variant-item-template">
+  <div class="dkn-addon-variant-item d-flex align-items-center w-100">
+    <input class="dkn-variant-input dkn-input-checkbox me-2"
+           type="checkbox"
+           name="addon">
+    <label class="dkn-variant-label dkn-addon-variant-details d-flex flex-row align-items-center justify-content-between w-100">
+      <div class="dkn-addon-variant-name"></div>
+      <div class="dkn-addon-variant-price"></div>
+    </label>
+  </div>
+</template>
+<template id="dkn-size-variant-section-template">
+  <div class="dkn-variant-section d-flex flex-column variant-type-section">
+    <div class="flex d-flex flex-row d-row j-sb justify-content-between">
+      <div class="dkn-variant-section-heading text-14_20 text-lg-16_24 font-semibold mb-2 variant-type-label"></div>
+      <size-chart-btn></size-chart-btn>
+    </div>
+    <div class="dkn-variant-section-list d-flex flex-row flex-wrap"></div>
+  </div>
+</template>
+<template id="dkn-color-variant-section-template">
+  <div class="dkn-variant-section d-flex flex-column variant-type-section">
+    <div class="dkn-variant-section-heading text-14_20 text-lg-16_24 font-semibold mb-2 variant-type-label"></div>
+    <div class="dkn-variant-section-list d-flex flex-row flex-wrap"></div>
+  </div>
+</template>
+<template id="dkn-action-button-wrapper-template">
+  <add-to-bag-button
+  data-add-event="CATEGORY_PAGE_PRODUCT_ADDED"
+  data-product-uuid=""
+  data-sku-uuid=""
+  class="product-modal-add-to-bag-btn dkn-add-to-bag-button"
+  data-out-stock-template-id="out-of-stock-button-modal"
+  ></add-to-bag-button>
+  <buy-now-button-load-point
+  class="flex-1 ml-8 dkn-buy-now-button"
+  data-add-event="CATEGORY_PAGE_BUY_NOW"
+  data-product-uuid=""
+  data-sku-uuid=""
+  ></buy-now-button-load-point>
+</template>
+<template id="dkn-wishlist-action-button-template">
+  <wishlist-button-load-point
+  data-product-uuid=""
+  data-sku-uuid=""
+  data-template-id="modal-wishlist-button-template"
+  data-add-event="CATEGORY_PAGE_WISHLIST_ADDED"
+  >
+  <button type="button"
+          class="detail-wishlist-btn"
+          data-wishlist-button-state="unselected">
+    <span class="wishlist-svg-wrapper">
+      <svg width="20"
+           height="20">
+        <use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use>
+      </svg>
+    </span>
+    <span>{{ DUKAAN_LANGUAGE.WISHLIST }}</span>
+  </button>
+  </wishlist-button-load-point>
+</template>

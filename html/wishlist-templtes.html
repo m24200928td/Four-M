@@ -1,0 +1,242 @@
+<template id="heart-wishlist-button-template">
+    <div class="heart-wishlist-buttons-wrapper">
+        <button type="button" data-wishlist-button-state="unselected">
+            <div class="wishlist-svg-wrapper">
+                <svg width="20" height="17">
+                    <use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use>
+                </svg>
+            </div>
+        </button>
+        <button type="button" data-wishlist-button-state="selected">
+            <div class="wishlist-svg-wrapper">
+                <svg width="20" height="17">
+                    <use xlink:href="/assets/wishlist.svg#filled-wishlist-icon"></use>
+                </svg>
+            </div>
+        </button>
+    </div>
+</template>
+
+<template id="pdp-wishlist-button-template">
+    <div class="pdp-wishlist-buttons-wrapper">
+        <button type="button" class="detail-wishlist-btn" data-wishlist-button-state="unselected">
+            <span class="wishlist-svg-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M14.5098 2.61055C15.2835 2.28999 16.1127 2.125 16.9501 2.125C17.7875 2.125 18.6168 2.28999 19.3904 2.61055C20.1641 2.93112 20.867 3.40096 21.459 3.99325C22.0511 4.5852 22.5209 5.28801 22.8414 6.06153C23.1619 6.83517 23.3269 7.6644 23.3269 8.50183C23.3269 9.33926 23.1619 10.1685 22.8414 10.9421C22.5209 11.7157 22.0511 12.4186 21.4588 13.0105C21.4588 13.0106 21.4589 13.0105 21.4588 13.0105L12.6188 21.8505C12.2771 22.1923 11.7231 22.1923 11.3814 21.8505L2.5414 13.0105C1.34561 11.8148 0.673828 10.1929 0.673828 8.50183C0.673828 6.81073 1.34561 5.18889 2.5414 3.99311C3.73719 2.79732 5.35902 2.12553 7.05012 2.12553C8.74122 2.12553 10.3631 2.79732 11.5588 3.99311L12.0001 4.43439L12.4413 3.99325C13.0333 3.40096 13.7362 2.93112 14.5098 2.61055ZM20.2213 5.2304C19.7918 4.8007 19.2818 4.45983 18.7205 4.22726C18.1593 3.9947 17.5577 3.875 16.9501 3.875C16.3426 3.875 15.741 3.9947 15.1797 4.22726C14.6184 4.45983 14.1085 4.8007 13.679 5.2304L12.6188 6.29054C12.2771 6.63225 11.7231 6.63225 11.3814 6.29054L10.3214 5.23054C9.4538 4.36295 8.27709 3.87553 7.05012 3.87553C5.82315 3.87553 4.64644 4.36295 3.77884 5.23054C2.91124 6.09814 2.42383 7.27486 2.42383 8.50183C2.42383 9.72879 2.91124 10.9055 3.77884 11.7731L12.0001 19.9944L20.2214 11.7731C20.6511 11.3436 20.9921 10.8335 21.2247 10.2722C21.4572 9.71096 21.5769 9.10937 21.5769 8.50183C21.5769 7.89428 21.4572 7.29269 21.2247 6.73141C20.9921 6.17014 20.651 5.6599 20.2213 5.2304Z"
+                        fill="#4D4D4D" />
+                </svg>
+            </span>
+            <span class="wishlist-btn-text">{{ DUKAAN_LANGUAGE.ADD_TO_WISHLIST or 'Add to wishlist' }}</span>
+        </button>
+        <button type="button" class="detail-wishlist-btn" data-wishlist-button-state="selected">
+            <span class="wishlist-svg-wrapper">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M16.9501 2.125C16.1127 2.125 15.2835 2.28999 14.5098 2.61055C13.7362 2.93112 13.0333 3.40096 12.4413 3.99325L12.0001 4.43439L11.5588 3.99311C10.3631 2.79732 8.74122 2.12553 7.05012 2.12553C5.35902 2.12553 3.73719 2.79732 2.5414 3.99311C1.34561 5.18889 0.673828 6.81073 0.673828 8.50183C0.673828 10.1929 1.34561 11.8148 2.5414 13.0105L11.3814 21.8505C11.7231 22.1923 12.2771 22.1923 12.6188 21.8505L21.4588 13.0105C22.0511 12.4186 22.5209 11.7157 22.8414 10.9421C23.1619 10.1685 23.3269 9.33926 23.3269 8.50183C23.3269 7.6644 23.1619 6.83517 22.8414 6.06153C22.5209 5.28801 22.0511 4.5852 21.459 3.99325C20.867 3.40096 20.1641 2.93112 19.3904 2.61055C18.6168 2.28999 17.7875 2.125 16.9501 2.125Z"
+                        fill="#4D4D4D" />
+                </svg>
+            </span>
+            <span class="wishlist-btn-text">{{ DUKAAN_LANGUAGE.WISHLISTED }}</span>
+        </button>
+    </div>
+</template>
+
+<template id="modal-wishlist-button-template">
+    <div class="modal-wishlist-buttons-wrapper">
+        <button type="button" class="detail-wishlist-btn" data-wishlist-button-state="unselected">
+            <span class="wishlist-svg-wrapper">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M12.0905 2.17416C12.7352 1.90703 13.4263 1.76953 14.1241 1.76953C14.822 1.76953 15.513 1.90703 16.1577 2.17416C16.8024 2.44129 17.3882 2.83283 17.8815 3.32641C18.375 3.8197 18.7664 4.40537 19.0335 5.04997C19.3006 5.69467 19.4381 6.38569 19.4381 7.08355C19.4381 7.78141 19.3006 8.47243 19.0335 9.11713C18.7664 9.76179 18.3749 10.3475 17.8814 10.8408C17.8813 10.8409 17.8814 10.8408 17.8814 10.8408L10.5147 18.2075C10.23 18.4922 9.76828 18.4922 9.48352 18.2075L2.11686 10.8408C1.12037 9.84433 0.560547 8.4928 0.560547 7.08355C0.560547 5.6743 1.12037 4.32278 2.11686 3.32629C3.11335 2.3298 4.46487 1.76998 5.87412 1.76998C7.28337 1.76998 8.6349 2.3298 9.63139 3.32629L9.99912 3.69402L10.3667 3.32641C10.8601 2.83283 11.4458 2.44129 12.0905 2.17416ZM16.8501 4.35736C16.4922 3.99928 16.0672 3.71522 15.5995 3.52142C15.1317 3.32762 14.6304 3.22786 14.1241 3.22786C13.6178 3.22786 13.1165 3.32762 12.6488 3.52142C12.1811 3.71522 11.7561 3.99928 11.3982 4.35736L10.5147 5.24082C10.23 5.52558 9.76828 5.52558 9.48352 5.24082L8.60019 4.35748C7.87719 3.63449 6.8966 3.22831 5.87412 3.22831C4.85165 3.22831 3.87105 3.63449 3.14805 4.35748C2.42506 5.08048 2.01888 6.06108 2.01888 7.08355C2.01888 8.10603 2.42506 9.08662 3.14805 9.80962L9.99912 16.6607L16.8502 9.80962C17.2083 9.45171 17.4925 9.02662 17.6863 8.5589C17.8801 8.09117 17.9798 7.58984 17.9798 7.08355C17.9798 6.57726 17.8801 6.07594 17.6863 5.60821C17.4925 5.14048 17.2082 4.71528 16.8501 4.35736Z"
+                        fill="var(--primary)" />
+                </svg>
+            </span>
+            <span>{{ DUKAAN_LANGUAGE.WISHLIST }}</span>
+        </button>
+        <button type="button" class="detail-wishlist-btn" data-wishlist-button-state="selected">
+            <span class="wishlist-svg-wrapper">
+                <svg width="20" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M14.6241 1.76953C13.9263 1.76953 13.2352 1.90703 12.5905 2.17416C11.9458 2.44129 11.3601 2.83283 10.8667 3.32641L10.4991 3.69402L10.1314 3.32629C9.1349 2.3298 7.78337 1.76998 6.37412 1.76998C4.96487 1.76998 3.61335 2.3298 2.61686 3.32629C1.62037 4.32278 1.06055 5.6743 1.06055 7.08355C1.06055 8.4928 1.62037 9.84433 2.61686 10.8408L9.98352 18.2075C10.2683 18.4922 10.73 18.4922 11.0147 18.2075L18.3814 10.8408C18.8749 10.3475 19.2664 9.76179 19.5335 9.11713C19.8006 8.47243 19.9381 7.78141 19.9381 7.08355C19.9381 6.38569 19.8006 5.69467 19.5335 5.04997C19.2664 4.40537 18.875 3.8197 18.3815 3.32641C17.8882 2.83283 17.3024 2.44129 16.6577 2.17416C16.013 1.90703 15.322 1.76953 14.6241 1.76953Z"
+                        fill="var(--primary)" />
+                </svg>
+            </span>
+            <span>{{ DUKAAN_LANGUAGE.WISHLISTED }}</span>
+        </button>
+    </div>
+</template>
+
+<template id="wishlist-variant-selection-form">
+    <form id="variant-selection">
+        <div class="variant-selection px24">
+            <div class="variant-type-label size-label size-selection-heading">
+                {{ DUKAAN_LANGUAGE.SIZE }}
+            </div>
+            <div class="size-selection size-selection-list">
+            </div>
+            <div class="variant-type-label color-label color-selection-heading">
+                {{ DUKAAN_LANGUAGE.SIZE }}
+            </div>
+            <div class="color-selection color-selection-list">
+            </div>
+        </div>
+    </form>
+    <div class="product-modal-btn-wrapper fB a-c j-fs detail-submit-btn">
+        <wishlist-button-load-point data-product-uuid="" data-sku-uuid=""
+            data-template-id="modal-wishlist-button-template" data-add-event="CATEGORY_PAGE_WISHLIST_ADDED"
+            class="hidden">
+            <button type="button" class="detail-wishlist-btn" data-wishlist-button-state="unselected">
+                <span class="wishlist-svg-wrapper">
+                    <svg width="20" height="20">
+                        <use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use>
+                    </svg>
+                </span>
+                <span>{{ DUKAAN_LANGUAGE.WISHLIST }}</span>
+            </button>
+        </wishlist-button-load-point>
+    </div>
+</template>
+
+<template id="dkn-wishlist-card-template">
+    <div class="dkn-wishlist-card wishlist-card dkn-product-card" data-wishlist-id>
+        <div>
+            <div class="relative">
+                <a href="" class="dkn-product-link">
+                    <div class="seller-img">
+                        <section class="splide dkn-product-image-carousel-wrapper"
+                            id="dkn-product-image-carousel-wrapper">
+                            <div class="splide__track">
+                                <ul class="splide__list dkn-product-image-carousel">
+                                    <!-- product-splide-images will come here -->
+                                </ul>
+                            </div>
+                            <div class="splide-progress-bar dkn-product-image-carousel-progress-bar">
+                            </div>
+                        </section>
+                        <div class="dkn-product-only-image-wrapper">
+                            <img loading="lazy" src="" id="product-card-images" class="dkn-product-image" alt="productImage"
+                                onerror="imageOnError(event)" />
+                        </div>
+                        <div class="dkn-product-card-bxgy-badge bxgy-badge-booster hidden" data-product-id data-product-uuid>
+                        </div>
+                    </div>
+                </a>
+                <div class="delete-wishlist-button-wrapper">
+                    <button class="dkn-delete-wishlist-button delete-wishlist-button">
+                        <div class="delete-wishlist-svg-wrapper">
+                            <svg width="10" height="10">
+                                <use xlink:href="/assets/wishlist.svg#cross-wishlist-icon"></use>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <a href="" class="dkn-product-link">
+                <div class="seller-box-caption">
+                    <h3 class="dkn-product-name">
+                    </h3>
+                    <div class="dkn-product-variant-info hidden product-variant"></div>
+                    <h4 class="dkn-product-price-label">
+                        <span class="dkn-product-selling-price"></span>
+                        <span class="dkn-product-original-price price-line"></span>
+                        <span class="dkn-product-discount price-off"></span>
+                    </h4>
+                    <h4 class="dkn-sold-out-label out-of-stock-label hidden">
+                        {{ DUKAAN_LANGUAGE.SOLD_OUT }}
+                    </h4>
+                </div>
+            </a>
+        </div>
+        <move-to-bag-button 
+            data-product-uuid="" 
+            data-sku-uuid="" 
+            data-add-event="WISHLIST_PAGE_PRODUCT_ADDED"
+        >
+            <div class="move-to-bag-button-wrapper">
+                <button class="dkn-without-cart-add-to-bag-button without-cart-add-to-bag-button btn-primary">
+                    {{ DUKAAN_LANGUAGE.MOVE_TO_BAG }}
+                </button>
+            </div>
+        </move-to-bag-button>
+        <div class="wishlist-card-overlay"></div>
+    </div>
+</template>
+
+<template id="dkn-product-variant-info-size-item-template">
+    <div class="dkn-product-variant-info-size-item product-variant-info-size-item ellipsis">
+    </div>
+</template>
+
+<template id="dkn-product-variant-info-color-item-template">
+    <div class="dkn-product-variant-info-color-item product-variant-info-color-item">
+    </div>
+</template>
+
+<template id="dkn-product-variant-info-base-qty-item-template">
+    <div class="dkn-product-variant-info-base-qty-item product-variant-info-base-qty-item">
+    </div>
+</template>
+
+<template id="dkn-move-to-bag-button-template">
+    <div class="move-to-bag-button-wrapper">
+        <button class="dkn-without-cart-move-to-bag-button without-cart-add-to-bag-button btn-primary">
+            {{ DUKAAN_LANGUAGE.MOVE_TO_BAG }}
+        </button>
+        <button class="dkn-with-cart-move-to-bag-button with-cart-add-to-bag-button hidden detail-counter">
+            <div class="remove-button fB flex-1 a-c j-c hidden">
+            </div>
+            <div class="product-qty fB flex-1 a-c j-c hidden">
+            </div>
+            <div class="add-button fB flex-1 a-c j-c">
+                {{ DUKAAN_LANGUAGE.MOVE_TO_BAG }}
+            </div>
+        </button>
+    </div>
+</template>
+
+<template id="dkn-move-to-bag-out-of-stock-button-template">
+    <div class="move-to-bag-button-wrapper">
+        <button disabled class="dkn-without-cart-move-to-bag-button without-cart-add-to-bag-button out-of-stock-disabled-button">
+            {{ DUKAAN_LANGUAGE.SOLD_OUT }}
+        </button>
+    </div>
+</template>
+
+<template id="dkn-wishlist-page-section-template">
+    <div class="breadcrumb-section hide-on-mobile">
+        <div class="container">
+            <ol class="breadcrumb-inner">
+                <li class="breadcrumb-item">
+                    <a href="{{ DUKAAN_BASE_URL or '/' }}">{{ DUKAAN_LANGUAGE.HOME }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">{{ DUKAAN_LANGUAGE.WISHLIST }}</li>
+            </ol>
+        </div>
+    </div>
+    <div class="container">
+        <h2 class="second-heading dkn-total-wishlist-count hide-on-mobile">
+            <div class="shimmer total-wishlist-count__shimmer"></div>
+        </h2>
+        <div class="back-arrow my-12 hide-on-desktop">
+            <button onclick="handleBackClick()" class="dkn-wishlist-btn-reset">
+                <svg class="icon">
+                    <use xlink:href="/assets/icons.svg#left"></use>
+                </svg>
+            </button>
+            <span class="dkn-total-wishlist-count">
+                <div class="shimmer total-wishlist-count__shimmer"></div>
+            </span>
+        </div>
+    </div>
+    <div class="container wishlist-page-container">
+        <dkn-wishlisted-product-list-load-point class="wishlisted-variants-list">
+            {% for i in range(0, 24) %}
+            <div class="wishlist-card__shimmer">
+                <div class="product-info__shimmer shimmer"></div>
+                <div class="cta__shimmer shimmer"></div>
+            </div>
+            {% endfor %}
+        </dkn-wishlisted-product-list-load-point>
+    </div>
+</template>

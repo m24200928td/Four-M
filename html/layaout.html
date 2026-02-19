@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{ 'head' | DukaanBlocks }}
+    <meta charset="utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    {{ 'styles.css' | css | static }}
+    {{ 'mana.css' | css | static }}
+    {{ 'splide.min.css' | css | static }}
+    {{ 'wishlist-utils.css' | css | static }}
+    {{ 'wishlist.css' | css | static }}
+    
+    <!-- YOUR CUSTOM FOOTER CSS START -->
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --footer-bg: #0f172a; /* Very Dark Navy/Charcoal - Premium feel */
+            --footer-border: #1e293b;
+            --text-main: #cbd5e1; /* Soft gray, not stark white */
+            --text-heading: #ffffff;
+            --accent-color: #00e5ff; /* Cyan for icons */
+            --hover-color: #005f6b; /* Brand Teal on hover */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #fff;
+        }
+
+        /* --- Footer Container --- */
+        .fm-premium-footer {
+            background-color: var(--footer-bg);
+            color: var(--text-main);
+            padding: 60px 20px 20px;
+            border-top: 1px solid var(--footer-border);
+            position: relative;
+        }
+
+        .fm-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Section 1: Top Bar --- */
+        .fm-top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--footer-border);
+            margin-bottom: 40px;
+            gap: 20px;
+        }
+
+        .fm-footer-logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .fm-logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-heading);
+            letter-spacing: 1px;
+        }
+
+        .fm-contact-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 5px;
+        }
+
+        .fm-contact-item {
+            font-size: 14px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+        }
+        
+        .fm-contact-item:hover {
+            color: var(--accent-color);
+        }
+
+        .fm-interact-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .fm-social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .fm-social-link:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        .fm-subscribe-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .fm-subscribe-btn:hover {
+            background-color: var(--hover-color);
+            border-color: var(--accent-color);
+            color: #fff;
+        }
+
+        /* --- Section 2: Columns Grid --- */
+        .fm-grid-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .fm-col h3 {
+            color: var(--text-heading);
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            border-left: 2px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .fm-links-list {
+            list-style: none;
+        }
+
+        .fm-links-list li {
+            margin-bottom: 10px;
+        }
+
+        .fm-links-list a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 14px;
+            transition: color 0.3s, padding-left 0.3s;
+            display: inline-block;
+        }
+
+        .fm-links-list a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .fm-double-col-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        /* --- Section 3: Payment Icons --- */
+        .fm-bottom-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--footer-border);
+            gap: 20px;
+        }
+
+        .fm-payments {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .payment-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .payment-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Hover Effects */
+        .payment-icon:hover {
+            background: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Brand Colors on Hover */
+        .payment-icon:hover svg.icon-bkash { color: #E2136E; }
+        .payment-icon:hover svg.icon-nagad { color: #F7931E; }
+        .payment-icon:hover svg.icon-cellfin { color: #00A3E0; }
+
+        /* Custom Tooltip for Number */
+        .payment-icon::after {
+            content: attr(data-number);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background-color: #fff;
+            color: #000;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            pointer-events: none;
+        }
+
+        .payment-icon:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-15px);
+        }
+
+        /* Copyright */
+        .fm-copyright {
+            font-size: 13px;
+            color: #64748b;
+            text-align: right;
+        }
+
+        .fm-copyright strong {
+            color: var(--text-heading);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* FIXED: Scoped SVG styles only to footer to avoid breaking other icons */
+        .fm-premium-footer svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .fm-top-bar { flex-direction: column; text-align: center; }
+            .fm-contact-item { justify-content: center; }
+            .fm-grid-layout { grid-template-columns: 1fr 1fr; }
+            .fm-double-col-list { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .fm-grid-layout { grid-template-columns: 1fr; gap: 30px; }
+            .fm-bottom-bar { flex-direction: column-reverse; text-align: center; }
+            .fm-copyright { text-align: center; }
+        }
+    </style>
+    <!-- YOUR CUSTOM FOOTER CSS END -->
+
+    <!-- GLOBAL CSS VARIABLES & MENU STYLES -->
+    <style>
+        :root {
+            --brand-color: #005f6b;
+            --text-dark: #1a181e;
+            --border-radius: 12px;
+            --bg-light: #f8f9fa;
+        }
+
+        .fm-menu-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            width: 100%;
+        }
+
+        .fm-menu-link:hover {
+            color: var(--brand-color);
+            transform: translateX(5px);
+            font-weight: 700;
+        }
+
+        .fm-arrow-icon {
+            opacity: 0;
+            transform: translateX(-10px);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            color: var(--brand-color);
+        }
+
+        .fm-menu-link:hover .fm-arrow-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+
+    {% block head %}
+    {% endblock head %}
+    {% include './../../dukaan/common/seo_tags/commonSeoTags.html' %}
+    {% include './../../dukaan/common/theme-colors.html' %}
+    {% include './../../dukaan/common/theme-fonts.html' %}
+  </head>
+  {% include './../../dukaan/common/spinner-loader.html' %}
+  <body style="display: flex; flex-direction: column">
+    {% include './header.html' %}
+    <product-variant-selection-modal
+    data-product-uuid=""
+    ></product-variant-selection-modal>
+    {% block content %}
+    {% endblock content %}
+
+    <!-- NEW FOOTER REPLACEMENT START -->
+    <footer class="fm-premium-footer">
+        <div class="fm-container">
+
+            <!-- 1. Top Bar: Logo, Contact, Socials, Subscribe -->
+            <div class="fm-top-bar">
+                <div class="fm-footer-logo">
+                    <span class="fm-logo-text">Four M</span>
+                </div>
+
+                <div class="fm-contact-group">
+                    <a href="mailto:fourmcontact@gmail.com" class="fm-contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        fourmcontact@gmail.com
+                    </a>
+                    <a href="tel:+8801608732072" class="fm-contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.05 12.05 0 0 0 .57 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.05 12.05 0 0 0 2.81.57A2 2 0 0 1 22 16.92z"></path></svg>
+                        01608732072
+                    </a>
+                    <div class="fm-contact-item">
+                        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        Dhaka, Bangladesh
+                    </div>
+                </div>
+
+                <div class="fm-interact-group">
+                    <a href="https://www.facebook.com/share/1Bpm3TLpN5/" class="fm-social-link" title="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="https://www.instagram.com/four_m3728" class="fm-social-link" title="Instagram">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <!-- FIXED TIKTOK ICON -->
+                    <a href="https://www.tiktok.com/@four.m3728" class="fm-social-link" title="TikTok">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                           <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/8801644029819" class="fm-social-link" title="WhatsApp">
+                        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    </a>
+
+                    <div class="fm-subscribe-btn" title="Subscribe to Updates">
+                        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Middle: Columns Grid -->
+            <div class="fm-grid-layout">
+                <div class="fm-col">
+                    <h3>Shop Categories</h3>
+                    <ul class="fm-links-list fm-double-col-list">
+                        <li><a href="https://mydukaan.io/fourm3/categories/men-s-boys-fashion">Men's & Boys Fashion</a></li>
+                        <li><a href="https://mydukaan.io/fourm3/categories/women-s-girls-fashion">Women's & Girls Fashion</a></li>
+                        <li><a href="#">Beauty</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Groceries</a></li>
+                        <li><a href="#">Education</a></li>
+                        <li><a href="#">Sports</a></li>
+                        <li><a href="#">Health</a></li>
+                    </ul>
+                </div>
+                <div class="fm-col">
+                    <h3>Support</h3>
+                    <ul class="fm-links-list">
+                        <li><a href="https://m24200928td.github.io/help-center/">Help Center</a></li>
+                        <li><a href="https://mydukaan.io/fourm3/p/shipping-and-delivery">Shipping & Delivery</a></li>
+                        <li><a href="https://mydukaan.io/fourm3/p/returns-and-refunds">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                <div class="fm-col">
+                    <h3>Company</h3>
+                    <ul class="fm-links-list">
+                        <li><a href="https://mydukaan.io/fourm3/p/about-four-m">About Four M</a></li>
+                    </ul>
+                </div>
+                <div class="fm-col">
+                    <h3>Legal</h3>
+                    <ul class="fm-links-list">
+                        <li><a href="https://mydukaan.io/fourm3/p/privacy-policy">Privacy Policy</a></li>
+                        <li><a href="https://mydukaan.io/fourm3/p/terms-of-service">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. Bottom: Payments & Copyright -->
+            <div class="fm-bottom-bar">
+                
+                <div class="fm-payments">
+                    <!-- bKash -->
+                    <a href="tel:01608732072" class="payment-icon" data-number="bKash: 01608732072" title="Call bKash">
+                        <svg class="icon-bkash" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/> 
+                        </svg>
+                    </a>
+                    
+                    <!-- Nagad -->
+                    <a href="tel:01644029819" class="payment-icon" data-number="Nagad: 01644029819" title="Call Nagad">
+                        <svg class="icon-nagad" viewBox="0 0 24 24">
+                            <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 10l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                    
+                    <!-- Cellfin -->
+                    <a href="tel:01644029819" class="payment-icon" data-number="Cellfin: 01644029819" title="Call Cellfin">
+                        <svg class="icon-cellfin" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/>
+                            <text x="12" y="16" font-family="Arial" font-weight="bold" font-size="10" text-anchor="middle" fill="currentColor" stroke="none">C</text>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="fm-copyright">
+                    &copy; 2026 <strong>Four M</strong>. All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- NEW FOOTER REPLACEMENT END -->
+
+    {% include '../../dukaan/common/bxgy-sticky-footer.html' %}
+    {% include '../../dukaan/common/store-open-sticky.html' %}
+    <div class="menu-sticky-bottom show-small-device">
+      <div class="container">
+        <div class="menu-sticky-inner nav-menu">
+          <a href="{{ DUKAAN_BASE_URL or '/' }}"
+             class="home-bottom"
+             id="mobile-home-icon">
+            <svg width="24"
+                 height="24"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg"
+                 class="active-state hidden">
+              <path d="M20.5122 9.72159L13.0122 2.90597C12.7357 2.65299 12.3745 2.5127 11.9997 2.5127C11.6249 2.5127 11.2637 2.65299 10.9872 2.90597L3.48721 9.72159C3.33365 9.86208 3.21101 10.033 3.12708 10.2234C3.04315 10.4139 2.99978 10.6197 2.99971 10.8278V19.4622C2.99361 19.8404 3.12712 20.2075 3.37471 20.4935C3.51523 20.6533 3.68833 20.7811 3.88238 20.8684C4.07643 20.9558 4.28692 21.0005 4.49971 20.9997H8.99971C9.19862 20.9997 9.38939 20.9207 9.53004 20.7801C9.67069 20.6394 9.74971 20.4486 9.74971 20.2497V15.7497C9.74971 15.5508 9.82873 15.36 9.96938 15.2194C10.11 15.0787 10.3008 14.9997 10.4997 14.9997H13.4997C13.6986 14.9997 13.8894 15.0787 14.03 15.2194C14.1707 15.36 14.2497 15.5508 14.2497 15.7497V20.2497C14.2497 20.4486 14.3287 20.6394 14.4694 20.7801C14.61 20.9207 14.8008 20.9997 14.9997 20.9997H19.4997C19.7485 21.0019 19.9937 20.9406 20.2122 20.8216C20.45 20.6921 20.6485 20.5011 20.787 20.2685C20.9256 20.036 20.9991 19.7704 20.9997 19.4997V10.8278C20.9996 10.6197 20.9563 10.4139 20.8723 10.2234C20.7884 10.033 20.6658 9.86208 20.5122 9.72159Z" fill="currentColor"/>
+            </svg>
+          </svg>
+        <svg width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+             class="deactive-state">
+          <path d="M14.5684 19.5V15C14.5684 14.801 14.4893 14.6103 14.3487 14.4696C14.208 14.329 14.0173 14.25 13.8184 14.25H10.8184C10.6194 14.25 10.4287 14.329 10.288 14.4696C10.1474 14.6103 10.0684 14.801 10.0684 15V19.5C10.0684 19.6989 9.98934 19.8896 9.84869 20.0303C9.70804 20.1709 9.51727 20.25 9.31836 20.25H4.81836C4.61945 20.25 4.42868 20.1709 4.28803 20.0303C4.14738 19.8896 4.06836 19.6989 4.06836 19.5V10.8281C4.07004 10.7243 4.09247 10.6219 4.13433 10.5269C4.17619 10.4319 4.23664 10.3462 4.31211 10.275L11.8121 3.45933C11.9504 3.33284 12.131 3.2627 12.3184 3.2627C12.5057 3.2627 12.6863 3.33284 12.8246 3.45933L20.3246 10.275C20.4001 10.3462 20.4605 10.4319 20.5024 10.5269C20.5442 10.6219 20.5667 10.7243 20.5684 10.8281V19.5C20.5684 19.6989 20.4893 19.8896 20.3487 20.0303C20.208 20.1709 20.0173 20.25 19.8184 20.25H15.3184C15.1194 20.25 14.9287 20.1709 14.788 20.0303C14.6474 19.8896 14.5684 19.6989 14.5684 19.5Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{ DUKAAN_LANGUAGE.HOME }}
+      </a>
+      <a href="{{ DUKAAN_BASE_URL }}/categories/"
+         class="shop-bottom"
+         id="mobile-shop-icon">
+        <svg width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+             class="active-state hidden">
+          <path d="M22.0684 8.98125V8.94375C22.0643 8.92832 22.0612 8.91267 22.059 8.89688V8.86875C22.0496 8.85 22.0496 8.83125 22.0402 8.8125V8.79375L20.6996 4.0875C20.6072 3.77548 20.4171 3.50138 20.1571 3.30559C19.8972 3.1098 19.5813 3.00268 19.2559 3H5.38086C5.05546 3.00268 4.73952 3.1098 4.47959 3.30559C4.21967 3.50138 4.0295 3.77548 3.93711 4.0875L2.59648 8.79375V8.8125C2.58711 8.83125 2.58711 8.85 2.57773 8.86875V8.89688C2.57554 8.91267 2.57241 8.92832 2.56836 8.94375V10.5C2.56836 11.0822 2.7039 11.6563 2.96426 12.1771C3.22461 12.6978 3.60262 13.1507 4.06836 13.5V19.5C4.06836 19.8978 4.22639 20.2794 4.5077 20.5607C4.789 20.842 5.17053 21 5.56836 21H19.0684C19.4662 21 19.8477 20.842 20.129 20.5607C20.4103 20.2794 20.5684 19.8978 20.5684 19.5V13.5C21.0341 13.1507 21.4121 12.6978 21.6725 12.1771C21.9328 11.6563 22.0684 11.0822 22.0684 10.5V8.98125ZM4.06836 9.75H8.56836V10.5C8.5687 10.887 8.46923 11.2675 8.27957 11.6048C8.0899 11.9421 7.81645 12.2248 7.48563 12.4255C7.15481 12.6263 6.77781 12.7383 6.39104 12.7508C6.00428 12.7633 5.62083 12.6758 5.27773 12.4969C5.22588 12.4558 5.16921 12.4212 5.10898 12.3937C4.78994 12.1914 4.52724 11.9117 4.3453 11.5806C4.16336 11.2495 4.0681 10.8778 4.06836 10.5V9.75ZM14.5684 10.5C14.5684 11.0967 14.3313 11.669 13.9093 12.091C13.4874 12.5129 12.9151 12.75 12.3184 12.75C11.7216 12.75 11.1493 12.5129 10.7274 12.091C10.3054 11.669 10.0684 11.0967 10.0684 10.5V9.75H14.5684V10.5ZM19.5277 12.3937C19.4675 12.4212 19.4108 12.4558 19.359 12.4969C19.0159 12.6758 18.6324 12.7633 18.2457 12.7508C17.8589 12.7383 17.4819 12.6263 17.1511 12.4255C16.8203 12.2248 16.5468 11.9421 16.3572 11.6048C16.1675 11.2675 16.068 10.887 16.0684 10.5V9.75H20.5684V10.5C20.5686 10.8778 20.4734 11.2495 20.2914 11.5806C20.1095 11.9117 19.8468 12.1914 19.5277 12.3937Z" fill="currentColor"/>
+        </svg>
+        <svg width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+             class="deactive-state">
+          <path d="M5.13672 13.0874V19.4999C5.13672 19.6988 5.21574 19.8896 5.35639 20.0302C5.49704 20.1709 5.68781 20.2499 5.88672 20.2499H19.3867C19.5856 20.2499 19.7764 20.1709 19.917 20.0302C20.0577 19.8896 20.1367 19.6988 20.1367 19.4999V13.0874" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M5.69922 3.75H19.5742C19.7369 3.75134 19.8949 3.8049 20.0249 3.9028C20.1548 4.00069 20.2499 4.13774 20.2961 4.29375L21.6367 9H3.63672L4.97734 4.29375C5.02354 4.13774 5.11862 4.00069 5.24859 3.9028C5.37855 3.8049 5.53652 3.75134 5.69922 3.75V3.75Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9.63672 9V10.5C9.63672 11.2956 9.32065 12.0587 8.75804 12.6213C8.19543 13.1839 7.43237 13.5 6.63672 13.5C5.84107 13.5 5.07801 13.1839 4.5154 12.6213C3.95279 12.0587 3.63672 11.2956 3.63672 10.5V9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M15.6367 9V10.5C15.6367 11.2956 15.3206 12.0587 14.758 12.6213C14.1954 13.1839 13.4324 13.5 12.6367 13.5C11.8411 13.5 11.078 13.1839 10.5154 12.6213C9.95279 13.1839 9.63672 11.2956 9.63672 10.5V9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21.6367 9V10.5C21.6367 11.2956 21.3206 12.0587 20.758 12.6213C20.1954 13.1839 19.4324 13.5 18.6367 13.5C17.8411 13.5 17.078 13.1839 16.5154 12.6213C15.9528 13.1839 15.6367 11.2956 15.6367 10.5V9" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        {{ DUKAAN_LANGUAGE.SHOP }}
+      </a>
+      <a href="/{{ DUKAAN_STORE.link }}/bag"
+         class="nav-button with-bubble bag-bottom">
+        <span>
+          <svg width="24"
+               height="24"
+               viewBox="0 0 24 24"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.8937 20.25H4.74373C4.55918 20.2491 4.38126 20.1811 4.24323 20.0586C4.1052 19.9361 4.01651 19.7675 3.99373 19.5844L2.66248 7.58438C2.65064 7.47982 2.66093 7.37394 2.69269 7.27363C2.72445 7.17331 2.77696 7.0808 2.84681 7.0021C2.91666 6.92341 3.00229 6.8603 3.09813 6.81686C3.19397 6.77343 3.29788 6.75065 3.4031 6.75H21.2344C21.3396 6.75065 21.4435 6.77343 21.5393 6.81686C21.6352 6.8603 21.7208 6.92341 21.7906 7.0021C21.8605 7.0808 21.913 7.17331 21.9448 7.27363C21.9765 7.37394 21.9868 7.47982 21.975 7.58438L20.6437 19.5844C20.6209 19.7675 20.5323 19.9361 20.3942 20.0586C20.2562 20.1811 20.0783 20.2491 19.8937 20.25V20.25Z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.56885 9.75V6.75C8.56885 5.75544 8.96394 4.80161 9.6672 4.09835C10.3705 3.39509 11.3243 3 12.3188 3C13.3134 3 14.2672 3.39509 14.9705 4.09835C15.6738 4.80161 16.0688 5.75544 16.0688 6.75V9.75" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+      </svg>
+      {{ DUKAAN_LANGUAGE.BAG }}
+      <span class="bubble hidden"
+            data-subscribe="products"
+            data-entity-type="bag-count"></span>
+    </span>
+  </a>
+  <a onclick="initDukaanAuth(redirectToAccount)"
+     class="account-bottom">
+    <svg width="24"
+         height="24"
+         viewBox="0 0 24 24"
+         fill="none"
+         xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 15C15.3137 15 18 12.3137 18 9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9C6 12.3137 8.68629 15 12 15Z" stroke="currentColor" stroke-width="1.25" stroke-miterlimit="10"/>
+      <path d="M2.90622 20.2499C3.82772 18.6534 5.15325 17.3277 6.74955 16.406C8.34585 15.4843 10.1567 14.999 12 14.999C13.8433 14.999 15.6541 15.4843 17.2504 16.406C18.8467 17.3277 20.1722 18.6534 21.0937 20.2499" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </svg>
+{{ DUKAAN_LANGUAGE.ACCOUNT }}
+</a>
+</div>
+</div>
+</div>
+<div class="modal search-modal hidden"
+     id="search-drawer"
+     onclick="closeSearchDrawer()">
+  <div class="modal-content modal-overflow-container"
+       onclick="event.stopPropagation()">
+    <div class="search-modal-header-wrapper">
+      <div class="modal-header search-popup">
+        <div class="modal-title">
+          {{ DUKAAN_LANGUAGE.SEARCH }}
+          <svg class="icon"
+               onclick="closeSearchDrawer()">
+            <use xlink:href="/assets/icons.svg#cross"></use>
+          </svg>
+        </div>
+      </div>
+      <!-- FIXED: Added action and method to form -->
+      <form id="search-form"
+            class="full-width"
+            action="{{ DUKAAN_BASE_URL }}/search"
+            method="GET"
+            onsubmit="redirectToSearchPageOnSubmit(event)">
+        <div class="input-wrapper">
+          <svg class="search-icon-svg"
+               width="24"
+               height="24"
+               viewBox="0 0 24 24"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_4320_12635)">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M10.875 3.75C6.93997 3.75 3.75 6.93997 3.75 10.875C3.75 14.81 6.93997 18 10.875 18C14.81 18 18 14.81 18 10.875C18 6.93997 14.81 3.75 10.875 3.75ZM2.25 10.875C2.25 6.11154 6.11154 2.25 10.875 2.25C15.6385 2.25 19.5 6.11154 19.5 10.875C19.5 15.6385 15.6385 19.5 10.875 19.5C6.11154 19.5 2.25 15.6385 2.25 10.875Z"
+            fill="#B2B2B2" />
+            <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M15.913 15.913C16.2059 15.6201 16.6808 15.6201 16.9737 15.913L21.5299 20.4693C21.8228 20.7622 21.8228 21.237 21.5299 21.5299C21.237 21.8228 20.7622 21.8228 20.4693 21.5299L15.913 16.9737C15.6201 16.6808 15.6201 16.2059 15.913 15.913Z"
+            fill="#B2B2B2" />
+            </g>
+            <defs>
+            <clipPath id="clip0_4320_12635">
+            <rect width="24" height="24" fill="white" />
+            </clipPath>
+            </defs>
+          </svg>
+          <!-- FIXED: Input name is 'q' for search query -->
+          <input type="text"
+                 class="search-input"
+                 name="q"
+                 autocomplete="off"
+                 onkeyup="onInputChange(event)"
+                 placeholder="{{ DUKAAN_LANGUAGE.WHAT_ARE_YOU_LOOKING_FOR }}"
+                 autofocus/>
+          <button type="button" class="cancel-btn cur-p hidden"
+                  onclick="clearInputSearch(event)">
+            <svg class=""
+                 width="16"
+                 height="16"
+                 viewBox="0 0 16 16"
+                 fill="none"
+                 xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_379_13555)">
+              <g clip-path="url(#clip1_379_13555)">
+              <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967Z"
+              fill="#1A181E" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L13.0303 11.9697C13.3232 12.2626 13.3232 12.7374 13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L2.96967 4.03033C2.67678 3.73744 2.67678 3.26256 2.96967 2.96967Z"
+              fill="#1A181E" />
+              </g>
+              </g>
+              <defs>
+              <clipPath id="clip0_379_13555">
+              <rect width="16" height="16" fill="white" />
+              </clipPath>
+              <clipPath id="clip1_379_13555">
+              <rect width="16" height="16" fill="white" />
+              </clipPath>
+              </defs>
+            </svg>
+          </button>
+        </div>
+        <input type="submit"
+               class="hidden"/>
+      </form>
+      <div class="divider"></div>
+    </div>
+    <div class="search-meta">
+      <div class="recent-searches hidden">
+        <div>
+          <div class="section-heading fB j-sb a-c mb16">
+            <span class="c-black font-bold t-16_24">{{ DUKAAN_LANGUAGE.RECENT_SEARCHES }}</span>
+            <span class="clear-text t-14 mt-14 medium pointer text-underline text-14_20"
+                  onclick="clearRecentSearches()">{{ DUKAAN_LANGUAGE.CLEAR_ALL }}</span>
+          </div>
+          <div class="recent-searches-list"></div>
+        </div>
+        <div class="divider bk-black-90"></div>
+      </div>
+      <div class="section-heading">{{ DUKAAN_LANGUAGE.TOP_CATEGORIES }}</div>
+      <div class="category-list">
+        {% for i in range(0,6) %}
+          <div class="search-category-item-shimmer flex d-column shimmer"></div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="prediction-section-heading hidden">{{ DUKAAN_LANGUAGE.SHOWING_PRODUCTS }}</div>
+    <div class="search-predictions hidden"></div>
+  </div>
+</div>
+<div class="modal search-modal hidden"
+     id="menu-item-drawer"
+     onclick="closeMenuItemDrawer()">
+  <!-- Menu Item Drawer Content -->
+</div>
+<template id="category-list-item">
+  <a class="category-list-item">
+    <img loading="lazy"
+         class="category-image"
+         onerror="imageOnError(event)"/>
+    <div class="category-name"></div>
+  </a>
+</template>
+<template id="search-prediction-item">
+  <a class="search-prediction-item flex j-sb a-c">
+    <div class="flex js a-c">
+      <div class="search-prediction-item-image-wrapper">
+        <img class="search-prediction-item-image"
+             onerror="imageOnError(event)"/>
+      </div>
+      <div class="prediction-label-wrapper">
+        <div class="prediction-label-product-name font-bold"></div>
+        <div class="prediction-label-category-name text-c-black-50"></div>
+      </div>
+    </div>
+    <svg class="fill-prediction"
+         xmlns="http://www.w3.org/2000/svg"
+         width="24"
+         height="24"
+         viewBox="0 0 24 24"
+         fill="none">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M21 12.2812C21 12.6955 20.6642 13.0312 20.25 13.0312L3.75 13.0313C3.33579 13.0313 3 12.6955 3 12.2813C3 11.867 3.33579 11.5313 3.75 11.5313L20.25 11.5312C20.6642 11.5312 21 11.867 21 12.2812Z" fill="#808080"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9697 19.5616C12.6768 19.2687 12.6768 18.7938 12.9697 18.5009L19.1893 12.2812L12.9697 6.06158C12.6768 5.76869 12.6768 5.29381 12.9697 5.00092C13.2626 4.70803 13.7374 4.70803 14.0303 5.00092L20.7803 11.7509C21.0732 12.0438 21.0732 12.5187 20.7803 12.8116L14.0303 19.5616C13.7374 19.8545 13.2626 19.8545 12.9697 19.5616Z" fill="#808080"/>
+    </svg>
+  </a>
+</template>
+<template id="menu-curtain-category-item">
+  <a class="content-section-list-item">
+    {{ collectionItem.name }}
+  </a>
+</template>
+<template id="menu-curtain-age-item">
+  <a class="content-section-list-item"></a>
+</template>
+<template id="recent-searches-template">
+  <div class="pointer fB py8 a-c j-fs d-r fullWidth recent-search-item pt-8">
+    <svg class="clock-svg"
+         width="24"
+         height="24"
+         viewBox="0 0 24 24"
+         fill="none"
+         xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 3.75C7.44365 3.75 3.75 7.44365 3.75 12C3.75 16.5563 7.44365 20.25 12 20.25C16.5563 20.25 20.25 16.5563 20.25 12C20.25 7.44365 16.5563 3.75 12 3.75ZM2.25 12C2.25 6.61522 6.61522 2.25 12 2.25C17.3848 2.25 21.75 6.61522 21.75 12C21.75 17.3848 17.3848 21.75 12 21.75C6.61522 21.75 2.25 17.3848 2.25 12Z" fill="#808080"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6C12.4142 6 12.75 6.33579 12.75 6.75V11.25H17.25C17.6642 11.25 18 11.5858 18 12C18 12.4142 17.6642 12.75 17.25 12.75H12C11.5858 12.75 11.25 12.4142 11.25 12V6.75C11.25 6.33579 11.5858 6 12 6Z" fill="#808080"/>
+    </svg>
+    <span class="c-black regular recent-search-item-text"> </span>
+  </div>
+</template>
+<template id="search-prediction-failed">
+  <div class="no-prediction">
+  </div>
+</template>
+<template id="add-to-bag-button-with-variant">
+  <div class="add-to-bag-button-wrapper">
+    <button class="without-cart-add-to-bag-button btn-primary">
+      {{ DUKAAN_LANGUAGE.ADD_TO_BAG }}
+    </button>
+    <button class="with-cart-add-to-bag-button hidden detail-counter">
+      <div class="remove-button fB flex-1 a-c j-c">
+        <svg class="icon">
+          <use xlink:href="/assets/icons.svg#minus"></use>
+        </svg>
+      </div>
+      <div class="product-qty fB flex-1 a-c j-c">
+        1
+      </div>
+      <div class="add-button fB flex-1 a-c j-c">
+        <svg class="icon">
+          <use xlink:href="/assets/icons.svg#plus"></use>
+        </svg>
+      </div>
+    </button>
+  </div>
+</template>
+<template id="add-to-bag-button-without-variant">
+  <div class="add-to-bag-button-wrapper">
+    <button class="without-cart-add-to-bag-button detail-add-btn">
+      {{ DUKAAN_LANGUAGE.ADD_TO_BAG }}
+    </button>
+    <button class="with-cart-add-to-bag-button hidden detail-counter">
+      <div class="remove-button fB flex-1 a-c j-c">
+        <svg class="icon">
+          <use xlink:href="/assets/icons.svg#minus"></use>
+        </svg>
+      </div>
+      <div class="product-qty fB flex-1 a-c j-c">
+        1
+      </div>
+      <div class="add-button fB flex-1 a-c j-c">
+        <svg class="icon">
+          <use xlink:href="/assets/icons.svg#plus"></use>
+        </svg>
+      </div>
+    </button>
+  </div>
+</template>
+<template id="out-of-stock-button"></template>
+<template id="buy-now-button-template">
+  <div class="buy-now-button-wrapper">
+    <button type="button"
+            class="detail-buy-btn">
+      {{ DUKAAN_LANGUAGE.BUY_NOW }}
+    </button>
+  </div>
+</template>
+<template id="size-variant-item">
+  <div class="size-label">
+    <div class="size-info">
+      <input id="size-{{ size }}"
+             value="{{ size }}"
+             type="radio"
+             name="size"
+             onchange="handleVariantChange()"/>
+      <label for="size-{{ size }}"
+             class="cur-p size-value">
+      </label>
+    </div>
+    <div class="price-tag d-none">
+      <div class="size-original-price">
+      </div>
+      <div class="size-selling-price">
+      </div>
+    </div>
+  </div>
+</template>
+<template id="color-variant-item">
+  <input class="color-label"
+         id="color-{{ color }}"
+         value="{{ color }}"
+         type="radio"
+         name="color"
+         onchange="handleVariantChange()"/>
+  <label for="color-{{ color }}"
+         class="cur-p">
+    <div class="color-display-section color-value">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="24"
+           height="24"
+           viewBox="0 0 24 24"
+           fill="none"
+           color="var(--tick-color)">
+        <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M21.0607 4.93934C21.6464 5.52513 21.6464 6.47487 21.0607 7.06066L10.0607 18.0607C9.47487 18.6464 8.52513 18.6464 7.93934 18.0607L2.93934 13.0607C2.35355 12.4749 2.35355 11.5251 2.93934 10.9393C3.52513 10.3536 4.47487 10.3536 5.06066 10.9393L9 14.8787L18.9393 4.93934C19.5251 4.35355 20.4749 4.35355 21.0607 4.93934Z"
+        fill="currentColor"
+        />
+      </svg>
+    </div>
+  </label>
+</template>
+<template id="variant-selection-form">
+  <form id="variant-selection">
+    <div class="variant-selection px24">
+      <div class="variant-type-label size-label size-selection-heading">
+        {{ DUKAAN_LANGUAGE.SIZE }}
+      </div>
+      <div class="size-selection size-selection-list">
+      </div>
+      <div class="variant-type-label color-label color-selection-heading">
+        {{ DUKAAN_LANGUAGE.COLOR }}
+      </div>
+      <div class="color-selection color-selection-list">
+      </div>
+    </div>
+  </form>
+  <div class="product-modal-btn-wrapper fB a-c j-fs detail-submit-btn">
+    <add-to-bag-button
+    data-add-event="CATEGORY_PAGE_PRODUCT_ADDED"
+    data-product-uuid=""
+    data-sku-uuid=""
+    class="product-modal-add-to-bag-btn"
+    data-out-stock-template-id="out-of-stock-button-modal"
+    ></add-to-bag-button>
+    <buy-now-button-load-point
+    class="flex-1 ml-8"
+    data-add-event="CATEGORY_PAGE_BUY_NOW"
+    data-product-uuid=""
+    data-sku-uuid=""
+    ></buy-now-button-load-point>
+  </div>
+</template>
+<template id="product-modal-splide-container">
+  <li class="splide__slide">
+    <div class="image-wrapper">
+      <img loading="lazy"
+           class="product-modal-splide-image"/>
+    </div>
+  </li>
+</template>
+<template id="product-variant-selection-modal">
+  <div class="modal product-variant-selection-modal hidden"
+       onclick="closeProductVariantModal()">
+    <div class="modal-content product-modal-container"
+         onclick="event.stopPropagation()">
+      <div class="product-modal-content">
+        <div class="product-images product-modal-col">
+          <section class="splide"
+                   id="splide-product-modal-images">
+            <div class="splide__arrows">
+              <button class="splide__arrow splide__arrow--prev">
+                <svg width="20"
+                     height="20"
+                     viewBox="0 0 20 20"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0524 3.19757C13.3575 3.50267 13.3575 3.99733 13.0524 4.30243L7.35485 10L13.0524 15.6976C13.3575 16.0027 13.3575 16.4973 13.0524 16.8024C12.7473 17.1075 12.2527 17.1075 11.9476 16.8024L5.69757 10.5524C5.39248 10.2473 5.39248 9.75267 5.69757 9.44757L11.9476 3.19757C12.2527 2.89248 12.7473 2.89248 13.0524 3.19757Z" fill="#1A181E"/>
+                </svg>
+              </button>
+              <button class="splide__arrow splide__arrow--next">
+                <svg width="20"
+                     height="20"
+                     viewBox="0 0 20 20"
+                     fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M6.94757 16.8024C6.64248 16.4973 6.64248 16.0027 6.94757 15.6976L12.6451 10L6.94757 4.30243C6.64248 3.99733 6.64248 3.50267 6.94757 3.19757C7.25267 2.89248 7.74733 2.89248 8.05243 3.19757L14.3024 9.44757C14.6075 9.75267 14.6075 10.2473 14.3024 10.5524L8.05243 16.8024C7.74733 17.1075 7.25267 17.1075 6.94757 16.8024Z" fill="#1A181E"/>
+                </svg>
+              </button>
+            </div>
+            <div class="splide__track">
+              <ul class="splide__list">
+                <!-- product-splide-images will come here -->
+              </ul>
+            </div>
+          </section>
+        </div>
+        <div class="product-information product-modal-col">
+          <div class="product-information-header px16 px-lg-24">
+            <div class="product-name line-clamp-2">
+            </div>
+            <div class="icon-wrapper">
+              <svg class="icon"
+                   onclick="closeProductVariantModal()">
+                <use xlink:href="/assets/icons.svg#cross"></use>
+              </svg>
+            </div>
+          </div>
+          <div class="product-price-information mb32 px16 px-lg-24">
+            <div class="product-selling-price">
+            </div>
+            <div class="product-original-price">
+            </div>
+            <div class="product-discount-badge">
+            </div>
+          </div>
+ 
+          <form class="variant-selection-form-wrapper variant-selection px16 px-lg-24">
+          </form>
+
+          <div class="dkn-action-button-wrapper product-modal-btn-wrapper fB a-c j-fs detail-submit-btn">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<template id="category-card-template">
+  <a class="categories-box"
+     href="">
+    <div class="categories-img">
+      <img loading="lazy"
+           class="category-image"
+           src=""/>
+    </div>
+    <div class="categories-box-caption">
+      <h3 class="category-name ellipsis">
+      </h3>
+      <svg width="32"
+           height="32"
+           viewBox="0 0 32 32"
+           fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M28 16C28 16.5523 27.5523 17 27 17L5 17C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15L27 15C27.5523 15 28 15.4477 28 16Z"
+        fill="#1A181E" />
+        <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M17.2929 25.7071C16.9024 25.3166 16.9024 24.6834 17.2929 24.2929L25.5858 16L17.2929 7.70711C16.9024 7.31658 16.9024 6.68342 17.2929 6.29289C17.6834 5.90237 18.3166 5.90237 18.7071 6.29289L27.7071 15.2929C28.0976 15.6834 28.0976 16.3166 27.7071 16.7071L18.7071 25.7071C18.3166 26.0976 17.6834 26.0976 17.2929 25.7071Z"
+        fill="#1A181E" />
+      </svg>
+    </div>
+  </a>
+</template>
+<template id="out-of-stock-button">
+  <div class="add-to-bag-button-wrapper">
+    <div class="without-cart-add-to-bag-button out-of-stock-text">
+      {{ DUKAAN_LANGUAGE.SOLD_OUT }}
+    </div>
+  </div>
+</template>
+<template id="out-of-stock-button-modal">
+  <div class="add-to-bag-button-wrapper">
+    <div class="without-cart-add-to-bag-button out-of-stock-text w-100">
+      {{ DUKAAN_LANGUAGE.SOLD_OUT }}
+    </div>
+  </div>
+</template>
+<!-- <template id="bestseller-category-subtitle">
+  <a class="second-heading--inner" data-bestseller-category-subtitle target="_self" href="" title=""></a>
+</template> -->
+<template id="bestseller-category-template">
+  <div class="seller-inner">
+    <h2 class="second-heading ellipsis">
+      <span data-bestseller-category-title></span>
+      <a class="second-heading--inner ml4"
+         data-bestseller-category-subtitle
+         target="_self"
+         href=""
+         title=""></a>
+    </h2>
+    <product-card-load-point class="seller-box-main"></product-card-load-point>
+    <div data-bestseller-category-view-all
+         class="seller-view-all hidden">
+      <a type="button"
+         class="btn-view-all"
+         data-bestseller-category-btn-view-all
+         href="">
+        {{ DUKAAN_LANGUAGE.VIEW_ALL }}
+      </a>
+    </div>
+  </div>
+</template>
+<template id="product-card-template">
+  <div class="seller-box flex d-column j-sb dkn-product-card"
+       data-product-uuid>
+    <div class="flex d-column">
+      <div class="relative">
+        <a href="">
+          <div class="seller-img">
+            <section class="splide dkn-product-card-image-carousel-wrapper"
+                     id="dkn-product-card-image-carousel-wrapper">
+              <div class="splide__track">
+                <ul class="splide__list dkn-product-card-image-carousel">
+                  <!-- product-splide-images will come here -->
+                </ul>
+              </div>
+              <div class="splide-progress-bar dkn-product-card-image-carousel-progress-bar">
+              </div>
+            </section>
+            <div class="dkn-product-card-only-image-wrapper">
+              <img loading="lazy"
+                   src=""
+                   id="product-card-images"
+                   class="dkn-product-card-image"
+                   alt="productImage"
+                   onerror="imageOnError(event)"/>
+            </div>
+            <div class="dkn-product-card-bxgy-badge bxgy-badge-booster hidden"
+                 data-product-id
+                 data-product-uuid>
+            </div>
+          </div>
+        </a>
+        <wishlist-button-load-point
+        data-product-uuid=""
+        data-template-id="heart-wishlist-button-template"
+        data-add-event="HOME_PAGE_WISHLIST_ADDED"
+        class="hidden"
+        >
+        <button disabled
+                type="button"
+                data-wishlist-button-state="unselected">
+          <div class="wishlist-svg-wrapper">
+            <svg width="20"
+                 height="17">
+              <use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use>
+            </svg>
+          </div>
+        </button>
+        </wishlist-button-load-point>
+      </div>
+      <a href="">
+        <div class="seller-box-caption">
+          <h3 class="dkn-product-card-name">
+          </h3>
+          <h4 class="dkn-product-card-price-label">
+            <span class="dkn-product-card-selling-price"></span>
+            <span class="dkn-product-card-original-price price-line"></span>
+            <span class="dkn-product-card-discount price-off"></span>
+          </h4>
+          <h4 class="dkn-sold-out-label out-of-stock-label hidden">
+            {{ DUKAAN_LANGUAGE.SOLD_OUT }}
+          </h4>
+        </div>
+      </a>
+    </div>
+    <add-to-bag-button-with-variants
+    data-product-uuid=""
+    data-add-event="HOME_PAGE_PRODUCT_ADDED"
+    >
+    <div class="add-to-bag-button-wrapper">
+      <button class="without-cart-add-to-bag-button btn-primary">
+        {{ DUKAAN_LANGUAGE.ADD_TO_BAG }}
+      </button>
+    </div>
+    </add-to-bag-button-with-variants>
+  </div>
+</template>
+
+<template id="dkn-product-card-image-slide-template">
+  <li class="splide__slide">
+    <img loading="lazy"
+         class="product-splide-image dkn-product-card-image-carousel-item"
+         alt="splideImage"
+         onerror="imageOnError(event)"/>
+  </li>
+</template>
+<template id="bestseller-shimmer">
+  <div class="seller-inner seller-inner-shimmer">
+    <h2 class="second-heading shimmer shimmer-text"
+        style="height: 30px;
+               width: 100px">
+    </h2>
+    <div class="seller-box-main">
+      <div class="seller-box">
+        <a data-product-card-slug
+           href="">
+          <div class="seller-img shimmer"
+               style="height: 100%;
+                      width: 100%;
+                      aspect-ratio: 1/1">
+          </div>
+          <div class="seller-box-caption">
+            <h3 class="shimmer shimmer-text"
+                style="height: 30px;
+                       width: 50px">
+            </h3>
+            <h4 class="shimmer shimmer-text"
+                style="height: 30px;
+                       width: 80px">
+            </h4>
+          </h4>
+        </div>
+      </a>
+    </div>
+    <div class="seller-box">
+      <a data-product-card-slug
+         href="">
+        <div class="seller-img shimmer"
+             style="height: 100%;
+                    width: 100%;
+                    aspect-ratio: 1/1">
+        </div>
+        <div class="seller-box-caption">
+          <h3 class="shimmer shimmer-text"
+              style="height: 30px;
+                     width: 50px">
+          </h3>
+          <h4 class="shimmer shimmer-text"
+              style="height: 30px;
+                     width: 80px">
+          </h4>
+        </h4>
+      </div>
+    </a>
+  </div>
+  <div class="seller-box">
+    <a data-product-card-slug
+       href="">
+      <div class="seller-img shimmer"
+           style="height: 100%;
+                  width: 100%;
+                  aspect-ratio: 1/1">
+      </div>
+      <div class="seller-box-caption">
+        <h3 class="shimmer shimmer-text"
+            style="height: 30px;
+                   width: 50px">
+        </h3>
+        <h4 class="shimmer shimmer-text"
+            style="height: 30px;
+                   width: 80px">
+        </h4>
+      </h4>
+    </div>
+  </a>
+</div>
+<div class="seller-box">
+  <a data-product-card-slug
+     href="">
+    <div class="seller-img shimmer"
+         style="height: 100%;
+                width: 100%;
+                aspect-ratio: 1/1">
+    </div>
+    <div class="seller-box-caption">
+      <h3 class="shimmer shimmer-text"
+          style="height: 30px;
+                 width: 50px">
+      </h3>
+      <h4 class="shimmer shimmer-text"
+          style="height: 30px;
+                 width: 80px">
+      </h4>
+    </h4>
+  </div>
+</a>
+</div>
+</div>
+</div>
+</template>
+<template id="product-card-shimmer">
+  <div class="seller-box">
+    <a data-product-card-slug
+       href="">
+      <div class="seller-img shimmer"
+           style="height: 100%;
+                  width: 100%;
+                  aspect-ratio: 1/1">
+      </div>
+      <div class="seller-box-caption">
+        <h3 class="shimmer shimmer-text"
+            style="height: 30px;
+                   width: 50px">
+        </h3>
+        <h4 class="shimmer shimmer-text"
+            style="height: 30px;
+                   width: 80px">
+        </h4>
+      </div>
+    </a>
+  </div>
+</template>
+<template id="category-product-card-template">
+  <div class="seller-box dkn-product-card" data-product-uuid>
+    <div class="relative">
+      <a href="">
+        <div class="seller-img">
+          <section class="splide dkn-product-card-image-carousel-wrapper" id="dkn-product-card-image-carousel-wrapper">
+            <div class="splide__track">
+              <ul class="splide__list dkn-product-card-image-carousel">
+                <!-- product-splide-images will come here -->
+              </ul>
+            </div>
+            <div class="splide-progress-bar dkn-product-card-image-carousel-progress-bar">
+            </div>
+          </section>
+          <div class="dkn-product-card-only-image-wrapper">
+            <img loading="lazy" src="" id="product-card-images" class="dkn-product-card-image" alt="productImage"
+              onerror="imageOnError(event)" />
+          </div>
+          <div class="dkn-product-card-bxgy-badge bxgy-badge-booster hidden" data-product-id data-product-uuid>
+          </div>
+        </div>
+      </a>
+      <wishlist-button-load-point data-product-uuid="" data-template-id="heart-wishlist-button-template"
+        data-add-event="COUPON_PAGE_WISHLIST_ADDED" class="hidden">
+        <button disabled type="button" data-wishlist-button-state="unselected">
+          <div class="wishlist-svg-wrapper">
+            <svg width="20" height="17">
+              <use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use>
+            </svg>
+          </div>
+        </button>
+      </wishlist-button-load-point>
+    </div>
+    <a href="">
+      <div class="seller-box-caption">
+        <h3 class="dkn-product-card-name">
+        </h3>
+        <h4 class="dkn-product-card-price-label">
+          <span class="dkn-product-card-selling-price"></span>
+          <span class="dkn-product-card-original-price price-line"></span>
+          <span class="dkn-product-card-discount price-off"></span>
+        </h4>
+        <h4 class="dkn-sold-out-label out-of-stock-label hidden">
+          {{ DUKAAN_LANGUAGE.SOLD_OUT }}
+        </h4>
+      </div>
+    </a>
+    {% if DUKAAN_THEME_DATA.meta.advanced.product.showAddToBagOnProductCard %}
+    <add-to-bag-button-with-variants data-product-uuid="" data-add-event="COUPON_PAGE_PRODUCT_ADDED">
+      <div class="add-to-bag-button-wrapper">
+        <button class="without-cart-add-to-bag-button btn-primary">
+          {{ DUKAAN_LANGUAGE.ADD_TO_BAG }}
+        </button>
+      </div>
+    </add-to-bag-button-with-variants>
+    {% endif %}
+  </div>
+</template>
+<template id="dkn-coupon-page-section-template">
+  <section class="breadcrumb-section hide-on-mobile">
+    <div class="container">
+      <ol class="breadcrumb-inner">
+        <li class="breadcrumb-item">
+          <a href="{{ DUKAAN_BASE_URL or '/' }}">Home</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ DUKAAN_CATEGORY.code }}</li>
+      </ol>
+    </div>
+  </section>
+  <div class="container">
+    <h2 class="second-heading hide-on-mobile">
+      {{ DUKAAN_CATEGORY.code }}
+    </h2>
+    <a href="{{ DUKAAN_BASE_URL or '/' }}" class="back-arrow my-12 hide-on-desktop">
+      <svg class="icon">
+        <use xlink:href="/assets/icons.svg#left"></use>
+      </svg>
+      <span>
+        {{ DUKAAN_CATEGORY.code }}
+      </span>
+    </a>
+    <dkn-coupon-products-list class="dkn-coupon-products-list coupon-products-list">
+      {% for i in range(0, 24) %}
+      <div class="coupon-card__shimmer">
+        <div class="product-info__shimmer shimmer"></div>
+        <div class="cta__shimmer shimmer"></div>
+      </div>
+      {% endfor %}
+    </dkn-coupon-products-list>
+  </div>
+</template>
+<!-- FIXED: Removed {{ 'footer' | DukaanBlocks }} to avoid double footer -->
+{{ 'styles.css' | css | static }}
+{{ 'common-components.css' | css | static }}
+{% include './wishlist-templates.html' %}
+{% include './product-variant-templates.html' %}
+{% include './../../dukaan/common/dukaan-data.html' %}
+{{ 'variant-utils.js' | js | static }}
+{{ 'dukaan-utils.js' | js | static }}
+{{ 'dukaan-coupons.js' | js | static }}
+{{ 'dukaan-offers.js' | js | static }}
+{{ 'layout.js' | js | static }}
+{{ 'wishlist-utils.js' | js | static({ defer: true }) }}
+{{ 'axios.min.js' | js | static }}
+<script defer
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+{% include './../../dukaan/common/common-scripts.html' %}
+{% include '../../dukaan/common/snackbar.html' %}
+{% include './../../dukaan/common/auth.html' %}
+{% include '../../dukaan/common/multilanguage.html' %}
+{% block script %}
+{% endblock script %}
+</body>
+</html>

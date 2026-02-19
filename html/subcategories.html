@@ -1,0 +1,49 @@
+{% extends "./layout.html" %}
+{% block head %}
+  {% include './../../dukaan/common/seo_tags/categorySeoTags.html' %}
+  {{ 'categories.css' | css | static }}
+{% endblock head %}
+{% block content %}
+  <div class="hide-desk category-banner-outer-wrapper">{% include './../../dukaan/common/category-banner.html' %}</div>
+  <div class="container hide-small-device category-banner-outer-wrapper">
+    {% include './../../dukaan/common/category-banner.html' %}
+  </div>
+  <section class="categories-section shop-categoris"
+           id="main-categories-container">
+    <section class="breadcrumb-section hide-small-device">
+      <div class="container">
+        <ol class="breadcrumb-inner">
+          <li class="breadcrumb-item">
+            <a href="{{ DUKAAN_BASE_URL or '/' }}">Home</a>
+          </li>
+          <li class="breadcrumb-item"
+              aria-current="page">
+            <a href="{{ DUKAAN_BASE_URL }}/categories/">Shop</a>
+          </li>
+          <li class="breadcrumb-item active"
+              aria-current="page">{{ DUKAAN_CATEGORY.name }}</li>
+        </ol>
+      </div>
+    </section>
+    <div class="container">
+      <div class="categories-inner">
+        <h2 class="second-heading">{{ DUKAAN_CATEGORY.name }}</h2>
+        <categories-list-template class="categories-box-main">
+        {% for i in range(0,9) %}
+          <div class="categories-box-shimmer categories-box flex d-column">
+            <div class="categories-img-shimmer categories-img shimmer"></div>
+            <div class="categories-box-caption shimmer"></div>
+          </div>
+        {% endfor %}
+        </categories-list-template>
+      </div>
+    </div>
+  </section>
+  <div class="hidden"
+       id="no-categories-found">{% include './../../dukaan/common/no-categories-found.html' %}</div>
+  {% include './../../dukaan/common/category-description.html' %}
+{% endblock content %}
+{% block script %}
+  {{ 'subcategories.js' | js | static({ defer: true }) }}
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-player/1.7.1/lottie-player.js"></script>
+{% endblock script %}

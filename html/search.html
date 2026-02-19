@@ -1,0 +1,117 @@
+{% extends "./layout.html" %}
+
+{% block head %}
+  {% include './../../dukaan/common/seo_tags/searchSeoTags.html' %}
+  {{ 'advance-filter.css' | css | static }}
+  {{ 'category.css' | css | static }}
+  {{ 'search.css' | css | static }}
+{% endblock head %}
+
+{% block content %}
+  <section class="container search-page-section">
+    <!-- Header Section -->
+    <div class="search-header-wrapper">
+      <div class="search-page-header">
+        <h2 class="title-1">
+          <span class="advance-filter__product-count"></span> results for "<span class="advance-filter__product-query"></span>"
+        </h2>
+        <div style="width: 33px"></div>
+      </div>
+
+      <div class="input-sort-container">
+        <div class="input-wrapper">
+          <!-- Search Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg"
+               width="24"
+               height="24"
+               viewBox="0 0 24 24"
+               fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M10.875 3.75C6.93997 3.75 3.75 6.93997 3.75 10.875C3.75 14.81 6.93997 18 10.875 18C14.81 18 18 14.81 18 10.875C18 6.93997 14.81 3.75 10.875 3.75ZM2.25 10.875C2.25 6.11154 6.11154 2.25 10.875 2.25C15.6385 2.25 19.5 6.11154 19.5 10.875C19.5 15.6385 15.6385 19.5 10.875 19.5C6.11154 19.5 2.25 15.6385 2.25 10.875Z" fill="#B2B2B2"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M15.913 15.913C16.2059 15.6201 16.6808 15.6201 16.9737 15.913L21.5299 20.4693C21.8228 20.7622 21.8228 21.237 21.5299 21.5299C21.237 21.8228 20.7622 21.8228 20.4693 21.5299L15.913 16.9737C15.6201 16.6808 15.6201 16.2059 15.913 15.913Z" fill="#B2B2B2"/>
+          </svg>
+          
+          <!-- Search Input -->
+          <input type="text"
+                 class="search-input form-input advance-filter__search-input"
+                 onkeyup="handleSearchPageInputKeyup(event)"
+                 placeholder="What are you looking for?" 
+                 autocomplete="off" />
+          
+          <!-- Close/Clear Icon -->
+          <svg class="close-icon hidden"
+               onclick="handleSearchPageInputClear()"
+               xmlns="http://www.w3.org/2000/svg"
+               width="16"
+               height="16"
+               viewBox="0 0 16 16"
+               fill="none"
+               style="cursor: pointer;">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M13.0303 2.96967C13.3232 3.26256 13.3232 3.73744 13.0303 4.03033L4.03033 13.0303C3.73744 13.3232 3.26256 13.3232 2.96967 13.0303C2.67678 12.7374 2.67678 12.2626 2.96967 11.9697L11.9697 2.96967C12.2626 2.67678 12.7374 2.67678 13.0303 2.96967Z" fill="#1A181E"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.96967 2.96967C3.26256 2.67678 3.73744 2.67678 4.03033 2.96967L13.0303 11.9697C13.3232 12.2626 13.3232 12.7374 13.0303 13.0303C12.7374 13.3232 12.2626 13.3232 11.9697 13.0303L2.96967 4.03033C2.67678 3.73744 2.67678 3.26256 2.96967 2.96967Z" fill="#1A181E"/>
+          </svg>
+        </div>
+
+        <!-- Sort Button Group -->
+        <div id="sort" class="sort-btn-group">
+          <label class="sort-lable">{{ DUKAAN_LANGUAGE.SORT_BY }}:</label>
+          <button type="button" class="sort-btn-toggle btn" onclick="">
+            <span class="sort-label-text"></span>
+            <span class="arrowToggle"> <span></span> <span></span> </span>
+          </button>
+          <div class="sort-price-dropdown">
+            <button type="button" value="bestsellers" onclick="sortByClickHandler('bestsellers', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.FEATURED }}
+            </button>
+            <button type="button" value="better_discount" onclick="sortByClickHandler('better_discount', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.DISCOUNT }}
+            </button>
+            <button type="button" value="price_low_to_high" onclick="sortByClickHandler('price_low_to_high', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.PRICE_LOW_T0_HIGH }}
+            </button>
+            <button type="button" value="price_high_to_low" onclick="sortByClickHandler('price_high_to_low', sortDropDownHandler)">
+              {{ DUKAAN_LANGUAGE.PRICE_HIGH_T0_LOW }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Include Category Templates -->
+  {% include './advanced-category-templates.html' %}
+
+  <section class="seller-section shop-categori-detail">
+    <div class="container flex">
+      <advanced-filters class="advance-filter__action-wrapper"></advanced-filters>
+      
+      <div class="advance-filter__cards-wrapper">
+        <filter-tags class="advance-filter__tags"></filter-tags>
+        
+        <category-cards class="advance-filter__cards-container">
+          {% for i in range(0,6) %}
+            <div class="advance-filter__product-card">
+              <div class="shimmer advance-filter__card-img--shimmer"></div>
+              <div class="shimmer advance-filter__card-title--shimmer"></div>
+            </div>
+          {% endfor %}
+        </category-cards>
+        
+        <pagination class="advance-filter__pagination-wrapper"></pagination>
+      </div>
+    </div>
+    
+    {% include '../../dukaan/common/advance-category-filter.html' %}
+  </section>
+
+  {% include './../../dukaan/common/no-search-result-found.html' %}
+{% endblock content %}
+
+{% block script %}
+  <script>
+    document.querySelector('[data-navButton="search"]')?.classList.add('active');
+  </script>
+  {{ 'search.js' | js | static }}
+  {{ 'category.js' | js | static }}
+  {{ 'splide.min.js' | js | static }}
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lottie-player/1.7.1/lottie-player.js"></script>
+{% endblock script %}

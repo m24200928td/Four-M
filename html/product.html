@@ -1,0 +1,479 @@
+{% extends "./layout.html" %}
+{% block head %}
+  {{ 'product.css' | css | static }}
+  {% include './../../dukaan/common/page-imports/product-page-imports.html' %}
+{% endblock head %}
+{% block content %}
+  <style>
+    .detail-description table {
+      width: 100%;
+    }
+
+    .detail-description table td {
+      padding: 8px;
+      border: 1px solid;
+    }
+  </style>
+  <section class="breadcrumb-section hide-small-device">
+    <div class="container">
+      <ol class="breadcrumb-inner">
+        <li class="breadcrumb-item">
+          <a href="{{ DUKAAN_BASE_URL or '/' }}">{{ DUKAAN_LANGUAGE.HOME }}</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a href="{{ DUKAAN_BASE_URL }}/categories">{{ DUKAAN_LANGUAGE.SHOP }}</a>
+        </li>
+        <li class="breadcrumb-item">
+        <a href="{{ DUKAAN_BASE_URL }}/categories/{{ DUKAAN_CATEGORY.slug }}">{{ DUKAAN_PRODUCT.categories[0].name }}</a
+        >
+      </li>
+      <li class="breadcrumb-item active lineClamp"
+          aria-current="page">{{ DUKAAN_PRODUCT.name }}</li>
+    </ol>
+  </div>
+</section>
+<section class="detail-top-back show-small-device">
+  <div class="container">
+    <div class="detail-top-back-inner">
+      <a href="{{ DUKAAN_BASE_URL or '/' }}"
+         class="back-arrow">
+        <svg class="icon">
+          <use xlink:href="/assets/icons.svg#left"></use>
+        </svg>
+      {{ DUKAAN_PRODUCT.categories[0].name }}</a
+      >
+      <div class="detail-top-bag nav-menu">
+        <a class="nav-button show-on-mobile"
+           onclick="openSearchDrawer()">
+          <svg class="icon">
+            <use xlink:href="/assets/icons.svg#search-small"></use>
+          </svg>
+        </a>
+        <a href="{{ DUKAAN_BASE_URL }}/categories/"
+           class="shop-bottom detail-top-bag-icon">
+          <svg class="icon">
+            <use xlink:href="/assets/icons.svg#shop"></use>
+          </svg>
+        </a>
+        <a href="/{{ DUKAAN_STORE.link }}/bag"
+           class="nav-button with-bubble bag-bottom">
+          <span>
+            <svg class="icon">
+              <use xlink:href="/assets/icons.svg#bag"></use>
+            </svg>
+            <span class="bubble hidden"
+                  data-subscribe="products"
+                  data-entity-type="bag-count"></span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="detail-slider-section product-details-section dkn-product-page-information">
+  <div class="container
+              {% if DUKAAN_PRODUCT.all_images.length < 3 %}
+                less-images-container
+              {% endif %}">
+    <div class="detail-inner">
+      <div class="detail-image-slider">
+        <div class="productLayout">
+          <section id="main-carousel"
+                   class="splide">
+            <div class="splide__track">
+              <ul class="splide__list">
+                {% for image in DUKAAN_PRODUCT.all_images %}
+                  <li class="splide__slide thumbImageWrapper"
+                      id="image-zoom"
+                      data-video-image-link="{{ image }}">
+                    <div class="splide-video-icon-image-wrapper">
+                      {% if image | isVideoImageLink %}
+                        <svg class="video-icon"
+                             xmlns="http://www.w3.org/2000/svg"
+                             width="80"
+                             height="80"
+                             viewBox="0 0 80 80"
+                             fill="none">
+                          <circle cx="40" cy="40" r="40" fill="white"/>
+                          <path d="M28.333 53.2417C28.333 54.5266 29.7258 55.3283 30.8369 54.6828L54.9433 40.6783C56.0493 40.0358 56.0493 38.4385 54.9433 37.796L30.8369 23.7915C29.7258 23.146 28.333 23.9477 28.333 25.2327V53.2417Z" fill="black"/>
+                        </svg>
+                      {% endif %}
+                      {% include '../../dukaan/common/share-button.html' %}
+                      <img onerror="imageOnError(event)"
+                           {% if not loop.first %}
+                             loading="lazy"
+                           {% endif %}
+                           class="h100 w100 mainImg {% if image | isVideoImageLink %} video-thumbnail{% endif %} dkn-main-product-image"
+                           data-index="{{ loop.index0 }}"
+                           src="{{ image | cdn(700)}}"/>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </section>
+          <section id="thumbnail-carousel"
+                   class="splide splide__arrows">
+            <div class="splide__arrows">
+              <button class="splide__arrow--prev"
+                      aria-controls="default-track"
+                      disabled>
+                <svg class="icon sort-icon">
+                  <use xlink:href="/assets/icons.svg#carrotdown"></use>
+                </svg>
+              </button>
+              <button class="splide__arrow--next"
+                      disabled>
+                <svg class="icon sort-icon">
+                  <use xlink:href="/assets/icons.svg#carrotdown"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="splide__track">
+              <ul class="splide__list thumbnails">
+                {% for image in DUKAAN_PRODUCT.all_images %}
+                  <li class="splide__slide thumbnail-image">
+                    <div class="splide-video-icon-image-wrapper">
+                      {% if image | isVideoImageLink %}
+                        <svg class="video-icon"
+                             xmlns="http://www.w3.org/2000/svg"
+                             width="40"
+                             height="40"
+                             viewBox="0 0 80 80"
+                             fill="none">
+                          <circle cx="40" cy="40" r="40" fill="white"/>
+                          <path d="M28.333 53.2417C28.333 54.5266 29.7258 55.3283 30.8369 54.6828L54.9433 40.6783C56.0493 40.0358 56.0493 38.4385 54.9433 37.796L30.8369 23.7915C29.7258 23.146 28.333 23.9477 28.333 25.2327V53.2417Z" fill="black"/>
+                        </svg>
+                      {% endif %}
+                      <img onerror="imageOnError(event)"
+                           {% if not loop.first %}
+                             loading="lazy"
+                           {% endif %}
+                           class="h100 w100 {% if image | isVideoImageLink %} video-thumbnail{% endif %}"
+                           src="{{ image | cdn(700)}}"/>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </section>
+        </div>
+        {% if DUKAAN_PRODUCT.description %}
+          <div class="detail-description break-word hide-small-device">
+            <h4 class="text-14_20 font-bold">{{ DUKAAN_LANGUAGE.PRODUCT_DESCRIPTION }}</h4>
+            <p>{{ DUKAAN_PRODUCT.description | htmlSanitizer | safe }}</p>
+          </div>
+        {% endif %}
+      </div>
+      <div class="detail-image-describe">
+        {% if DUKAAN_PRODUCT.coupon_data.length > 0 %}
+          <div class="bxgy-badge-booster-pdp">{{ DUKAAN_PRODUCT.coupon_data | getBXGYText }}</div>
+        {% endif %}
+        <div class="detail-heading-rating">
+          <h1>{{ DUKAAN_PRODUCT.name }}</h1>
+          {% include './../../dukaan/common/rating-info-pdp-minimal.html' %}
+          <p class="product-unit">{{ DUKAAN_PRODUCT.unitText }}</p>
+        </div>
+        <!-- scarcity plugin -->
+        <div class="dukaan_plugins-product_scarcity"
+             id="dukaan_plugins-product_scarcity-above_price"></div>
+        <div class="dkn-pdp-page-above-price"
+             id="dkn-pdp-page-above-price"></div>
+        <div class="detail-price-interest">
+          <div class="detail-price">
+          <div class="product-selling-price"></div>
+          <div class="product-original-price hidden"></div>
+          <div class="product-discount-badge hidden"></div>
+        </div>
+        </div>
+  <div class="dkn-pdp-page-below-price"
+       id="dkn-pdp-page-below-price"></div>
+  <!-- scarcity plugin -->
+  <div class="dukaan_plugins-product_scarcity"
+       id="dukaan_plugins-product_scarcity-below_price"></div>
+  <div class="dukaan_plugins-countdown_timer"
+       id="dukaan_plugins-countdown_timer-below_price"></div>
+  <best-coupon-pdp></best-coupon-pdp>
+  {% if DUKAAN_PRODUCT.attributes.size.length or DUKAAN_PRODUCT.attributes.color.length %}
+    <form class="variant-selection dkn-variant-selection-form-wrapper">
+      {% if DUKAAN_PRODUCT.attributes.size.length %}
+        <div class="variant-type-section variant-size-section">
+          <div class="variant-type-header flex j-sb">
+            <div class="shimmer"
+                 style="height: 16px;
+                        width: 50px;
+                        margin-bottom: 8px;"></div>
+            <size-chart-btn></size-chart-btn>
+          </div>
+          <div class="dkn-variant-section-size-list">
+            {% for size in DUKAAN_PRODUCT.attributes.size %}
+              <label class="shimmer"
+                     style="height: 30px;
+                            width: 70px;"></label>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+      {% if DUKAAN_PRODUCT.attributes.color.length %}
+        <div class="variant-type-section variant-color-section">
+          <div class="variant-type-header flex j-sb">
+            <div class="shimmer"
+                 style="height: 16px;
+                        width: 50px;
+                        margin-bottom: 8px;"></div>
+          </div>
+          <div class="dkn-variant-section-color-list">
+            {% for color in DUKAAN_PRODUCT.attributes.color %}<label class="shimmer"></label>{% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </form>
+  {% endif %}
+  <div id="payment-offers-wrapper">
+    <desktop-payment-offers></desktop-payment-offers>
+    <mobile-payment-offers></mobile-payment-offers>
+  </div>
+  <!-- <div style="margin-top: 32px;" class="countdown-timer-container hidden">
+          {% include '../../dukaan/common/countdownTimer.html' %}
+        </div> -->
+  <div class="display-none"
+       id="best-coupon-pdp-container">
+    <best-coupon-pdp></best-coupon-pdp>
+  </div>
+  {% if DUKAAN_PRODUCT.description %}
+    <div class="detail-description break-word show-small-device mrtb32">
+      <h4 class="font-bold" style="margin-bottom: 8px;">{{ DUKAAN_LANGUAGE.PRODUCT_DESCRIPTION }}</h4>
+      {{ DUKAAN_PRODUCT.description | htmlSanitizer | safe }}
+    </div>
+  {% endif %}
+  <!-- countdown plugins -->
+  <div class="dukaan_plugins-countdown_timer"
+       id="dukaan_plugins-countdown_timer-above_add_btn"></div>
+  <div class="detail-submit-btn pdp-button-wrapper">
+    <div class="add-to-bag-button-shimmer">
+      <div class="shimmer full-width"
+           style="height: 48px;"></div>
+    </div>
+    <div class="add-to-bag-button-shimmer">
+      <div class="shimmer full-width"
+           style="height: 48px;"></div>
+    </div>
+  </div>
+  <wishlist-button-load-point
+  data-product-uuid="{{ DUKAAN_PRODUCT.uuid }}"
+  data-sku-uuid="{{ DUKAAN_PRODUCT.skus[0].uuid }}"
+  data-add-event="PRODUCT_PAGE_WISHLIST_ADDED"
+  data-template-id="pdp-wishlist-button-template"
+  class="hidden dkn-pdp-wishlist-button-wrapper" style="padding-top: 16px;"
+  >
+  </wishlist-button-load-point>
+  <div class="dukaan_plugins-countdown_timer"
+       id="dukaan_plugins-countdown_timer-below_add_btn"></div>
+  <div class="trusted-badges-wrapper">{% include '../../dukaan/common/trusted-badges.html' %}</div>
+</div>
+</div>
+</div>
+</section>
+<section class="seller-section detail-seller-section similar-products-wrapper">
+  <div class="container">
+    <div class="seller-inner">
+      <h2 class="second-heading">{{ DUKAAN_LANGUAGE.YOU_MIGHT_LIKE_THESE }}</h2>
+      <similar-products-list
+      class="seller-box-main detail-seller"
+      data-product-uuid="{{ DUKAAN_PRODUCT.uuid }}"
+      >
+      {% for i in range(0,8) %}
+        <div class="product-card flex d-column">
+          <div class="product-image shimmer">
+          </div>
+          <div class="price-tag shimmer"
+               style="height: 24px;
+                      width:100%;
+                      margin-top: 8px;">
+          </div>
+          <div class="shimmer"
+               style="height: 16px;
+                      width:100%;
+                      margin-top: 8px;">
+          </div>
+        </div>
+      {% endfor %}
+      </similar-products-list>
+      <div class="seller-view-all view-all-button-wrapper hidden">
+        <a href="{{ DUKAAN_BASE_URL }}/categories/{{ DUKAAN_CATEGORY.slug }}"
+           type="button"
+           class="btn-view-all">
+        {{ DUKAAN_LANGUAGE.VIEW_ALL }}</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
+<section class="seller-section"
+         id="ratings-plugin-container">
+  <div class="container">
+    <div class="override-padding-ratings">
+      <ratings-plugin></ratings-plugin>
+    </div>
+  </div>
+</section>
+<template id="pdp-button-wrapper">
+  <add-to-bag-button
+  data-product-uuid="{{ DUKAAN_PRODUCT.uuid }}"
+  data-sku-uuid="{{ DUKAAN_PRODUCT.skus[0].uuid }}"
+  data-add-event="PRODUCT_PAGE_PRODUCT_ADDED"
+  class="product-add-to-bag-button dkn-add-to-bag-button"
+  data-out-stock-template-id="out-of-stock-button-modal"
+  >
+  </add-to-bag-button>
+  <buy-now-button-load-point
+  class="dkn-buy-now-button"
+  data-product-uuid="{{ DUKAAN_PRODUCT.uuid }}"
+  data-sku-uuid="{{ DUKAAN_PRODUCT.skus[0].uuid }}"
+  data-add-event="PRODUCT_PAGE_BUY_NOW"
+  >
+  </buy-now-button-load-point>
+</template>
+<template id="select-size-field">
+  <input value=""
+         type="radio"
+         name="size"
+         onchange="handleProductVariantChange()"/>
+  <label for=""
+         class="cur-p">
+  </label>
+</template>
+<template id="select-color-field">
+  <input value=""
+         type="radio"
+         name="color"
+         onchange="handleProductVariantChange()"/>
+  <label for=""
+         class="cur-p">
+    <div class="color-display-section"
+         style="border: 1px solid #B2B2B2;">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="24"
+           height="24"
+           viewBox="0 0 24 24"
+           fill="none"
+           color="#ffffff">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M21.0607 4.93934C21.6464 5.52513 21.6464 6.47487 21.0607 7.06066L10.0607 18.0607C9.47487 18.6464 8.52513 18.6464 7.93934 18.0607L2.93934 13.0607C2.35355 12.4749 2.35355 11.5251 2.93934 10.9393C3.52513 10.3536 4.47487 10.3536 5.06066 10.9393L9 14.8787L18.9393 4.93934C19.5251 4.35355 20.4749 4.35355 21.0607 4.93934Z"
+        fill="currentColor" />
+      </svg>
+    </div>
+  </label>
+</template>
+<template id="add-to-bag-button-without-variant">
+  <div class="add-to-bag-button-wrapper">
+    <button class="without-cart-add-to-bag-button detail-add-btn">
+      {{ DUKAAN_LANGUAGE.ADD_TO_BAG }}
+    </button>
+    <div class="with-cart-add-to-bag-button hidden detail-counter">
+      <button type="button"
+              class="remove-button">
+        <svg class="icon">
+          <use xlink:href="/assets/icons.svg#minus"></use>
+        </svg>
+      </button>
+      <button type="button"
+              class="product-qty">
+        1
+      </button>
+      <button type="button"
+              class="add-button">
+        <svg class="icon">
+          <use xlink:href="/assets/icons.svg#plus"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+</template>
+<template id="similar-product-card">
+  <div class="seller-box dkn-product-card flex d-column j-sb"
+       data-product-uuid>
+    <div class="flex d-column">
+    <div class="relative">
+      <a href="">
+        <div class="seller-img">
+          <section class="splide dkn-product-card-image-carousel-wrapper"
+                   id="dkn-product-card-image-carousel-wrapper">
+            <div class="splide__track">
+              <ul class="splide__list dkn-product-card-image-carousel">
+                <!-- product-splide-images will come here -->
+              </ul>
+            </div>
+            <div class="splide-progress-bar dkn-product-card-image-carousel-progress-bar">
+            </div>
+          </section>
+          <div class="dkn-product-card-only-image-wrapper">
+            <img loading="lazy"
+                 src=""
+                 id="product-card-images"
+                 class="dkn-product-card-image"
+                 alt="productImage"
+                 onerror="imageOnError(event)"/>
+          </div>
+          <div class="dkn-product-card-bxgy-badge bxgy-badge-booster hidden"
+               data-product-id
+               data-product-uuid>
+          </div>
+        </div>
+      </a>
+      <wishlist-button-load-point
+      data-product-uuid=""
+      data-template-id="heart-wishlist-button-template"
+      class="hidden"
+      >
+      <button disabled
+              type="button"
+              data-wishlist-button-state="unselected">
+        <div class="wishlist-svg-wrapper">
+          <svg width="20"
+               height="17">
+            <use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use>
+          </svg>
+        </div>
+      </button>
+      </wishlist-button-load-point>
+    </div>
+    <a href="">
+      <div class="seller-box-caption">
+        <h3 class="dkn-product-card-name">
+        </h3>
+        <h4 class="dkn-product-card-price-label">
+          <span class="dkn-product-card-selling-price"></span>
+          <span class="dkn-product-card-original-price price-line"></span>
+          <span class="dkn-product-card-discount price-off"></span>
+        </h4>
+        <h4 class="dkn-sold-out-label out-of-stock-label hidden">
+          {{ DUKAAN_LANGUAGE.SOLD_OUT }}
+        </h4>
+      </div>
+    </a>
+    </div>
+    <add-to-bag-button-with-variants
+    data-product-uuid=""
+    data-add-event="PRODUCT_PAGE_PRODUCT_ADDED"
+    >
+    <div class="add-to-bag-button-wrapper">
+      <button class="without-cart-add-to-bag-button btn-primary">
+        {{ DUKAAN_LANGUAGE.ADD_TO_BAG }}
+      </button>
+    </div>
+    </add-to-bag-button-with-variants>
+  </div>
+</template>
+{% endblock content %}
+{% block script %}
+  {{ 'dukaan-products.js' | js | static }}
+  {{ 'product.js' | js | static }}
+  {% include './../../dukaan/common/best-coupons-pdp.html' %}
+  {% include './../../dukaan/common/size-chart-button.html' %}
+  {% include './../../dukaan/common/available-offers-mobile.html' %}
+  {% include './../../dukaan/common/available-offers-desktop.html' %}
+  {{ 'splide.min.js' | js | static }}
+  {% include './../../dukaan/common/ratings.html' %}
+  {% include './../../dukaan/common/pinch-zoom-modal.html' %}
+{% endblock script %}

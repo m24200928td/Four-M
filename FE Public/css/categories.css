@@ -1,0 +1,18 @@
+.menu-sticky-inner a.shop-bottom{
+  color: var(--primary);
+}
+.home-white, .shop-active{
+  display: block;
+}
+.home-active, .shop-white{
+  display: none;
+}
+.shop-category-sorting{
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 767px) {
+.categories-section.shop-categoris{
+  margin: 24px 0px 32px 0px !important;
+}
+}

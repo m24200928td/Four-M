@@ -1,0 +1,278 @@
+<template id="filter-tag">
+  <div class="tag-wrapper advance-filter__tag">
+    <span class="tag-label advance-filter__tag-label"></span>
+    <button type="button"
+            class="advance-filter__tag-remover"
+            aria-label="Remove filter">
+      <svg width="12"
+           height="12"
+           viewBox="0 0 12 12"
+           fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.77275 2.22725C9.99242 2.44692 9.99242 2.80308 9.77275 3.02275L3.02275 9.77275C2.80308 9.99242 2.44692 9.99242 2.22725 9.77275C2.00758 9.55308 2.00758 9.19692 2.22725 8.97725L8.97725 2.22725C9.19692 2.00758 9.55308 2.00758 9.77275 2.22725Z"
+              fill="currentColor"
+              class="text-gray-500"/>
+        <path d="M2.22725 2.22725C2.44692 2.00758 2.80308 2.00758 3.02275 2.22725L9.77275 8.97725C9.99242 9.19692 9.99242 9.55308 9.77275 9.77275C9.55308 9.99242 9.19692 9.99242 8.97725 9.77275L2.22725 3.02275C2.00758 2.80308 2.00758 2.44692 2.22725 2.22725Z"
+              fill="currentColor"
+              class="text-gray-500"/>
+      </svg>
+    </button>
+  </div>
+</template>
+
+<!-- 2. Pagination Template -->
+<template id="pagination">
+  <div class="flex d-row a-center j-center hidden"
+       id="pagination-wrapper"
+       role="navigation"
+       aria-label="Pagination">
+    
+    <!-- Previous Button -->
+    <div class="arrow left-arrow cursor-pointer"
+         id="left-arrow"
+         role="button"
+         tabindex="0"
+         aria-label="Previous page">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="32"
+           height="32"
+           viewBox="0 0 32 32"
+           fill="none"
+           class="active hidden">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 16C4 15.4477 4.44772 15 5 15H27C27.5523 15 28 15.4477 28 16C28 16.5523 27.5523 17 27 17H5C4.44772 17 4 16.5523 4 16Z" fill="var(--primary)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 6.29289C15.0976 6.68342 15.0976 7.31658 14.7071 7.70711L6.41421 16L14.7071 24.2929C15.0976 24.6834 15.0976 25.3166 14.7071 25.7071C14.3166 26.0976 13.6834 26.0976 13.2929 25.7071L4.29289 16.7071C3.90237 16.3166 3.90237 15.6834 4.29289 15.2929L13.2929 6.29289C13.6834 5.90237 14.3166 5.90237 14.7071 6.29289Z" fill="var(--primary)"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="32"
+           height="32"
+           viewBox="0 0 32 32"
+           fill="none"
+           class="disabled hidden">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M4 16C4 15.4477 4.44772 15 5 15H27C27.5523 15 28 15.4477 28 16C28 16.5523 27.5523 17 27 17H5C4.44772 17 4 16.5523 4 16Z" fill="#B2B2B2"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 6.29289C15.0976 6.68342 15.0976 7.31658 14.7071 7.70711L6.41421 16L14.7071 24.2929C15.0976 24.6834 15.0976 25.3166 14.7071 25.7071C14.3166 26.0976 13.6834 26.0976 13.2929 25.7071L4.29289 16.7071C3.90237 16.3166 3.90237 15.6834 4.29289 15.2929L13.2929 6.29289C13.6834 5.90237 14.3166 5.90237 14.7071 6.29289Z" fill="#B2B2B2"/>
+      </svg>
+    </div>
+
+    <div class="page-numbers-list flex d-row a-center"
+         id="page-numbers-list"></div>
+
+    <!-- Next Button -->
+    <div class="arrow right-arrow cursor-pointer"
+         id="right-arrow"
+         role="button"
+         tabindex="0"
+         aria-label="Next page">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="32"
+           height="32"
+           viewBox="0 0 32 32"
+           fill="none"
+           class="active hidden">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M28 16C28 16.5523 27.5523 17 27 17L5 17C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15L27 15C27.5523 15 28 15.4477 28 16Z" fill="var(--primary)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2929 25.7071C16.9024 25.3166 16.9024 24.6834 17.2929 24.2929L25.5858 16L17.2929 7.70711C16.9024 7.31658 16.9024 6.68342 17.2929 6.29289C17.6834 5.90237 18.3166 5.90237 18.7071 6.29289L27.7071 15.2929C28.0976 15.6834 28.0976 16.3166 27.7071 16.7071L18.7071 25.7071C18.3166 26.0976 17.6834 26.0976 17.2929 25.7071Z" fill="var(--primary)"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="32"
+           height="32"
+           viewBox="0 0 32 32"
+           fill="none"
+           class="disabled hidden">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M28 16C28 16.5523 27.5523 17 27 17L5 17C4.44772 17 4 16.5523 4 16C4 15.4477 4.44772 15 5 15L27 15C27.5523 15 28 15.4477 28 16Z" fill="#b2b2b2"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.2929 25.7071C16.9024 25.3166 16.9024 24.6834 17.2929 24.2929L25.5858 16L17.2929 7.70711C16.9024 7.31658 16.9024 6.68342 17.2929 6.29289C17.6834 5.90237 18.3166 5.90237 18.7071 6.29289L27.7071 15.2929C28.0976 15.6834 28.0976 16.3166 27.7071 16.7071L18.7071 25.7071C18.3166 26.0976 17.6834 26.0976 17.2929 25.7071Z" fill="#b2b2b2"/>
+      </svg>
+    </div>
+  </div>
+</template>
+
+<!-- 3. Page Number Item -->
+<template id="page-no-item">
+  <button type="button"
+          class="advance-filter__page-no-item page-number-tag"
+          aria-label="Go to page">
+    <div class="advance-filter__page-number page-number"></div>
+  </button>
+</template>
+
+<!-- 4. Three Dots -->
+<template id="three-dots">
+  <div class="flex d-row advance-filter__three-dots" aria-hidden="true">
+    <div class="advance-filter__page-dot"></div>
+    <div class="advance-filter__page-dot"></div>
+    <div class="advance-filter__page-dot"></div>
+  </div>
+</template>
+
+<!-- 5. No Product Found -->
+<template id="no-product-found">
+  {% include '../../dukaan/common/no-product-found.html' %}
+</template>
+
+<!-- 6. Shimmer / Loading State -->
+<template id="category-card-shimmer">
+  <div class="advance-filter__product-card" aria-hidden="true">
+    <div class="shimmer advance-filter__card-img--shimmer"></div>
+    <div class="shimmer advance-filter__card-title--shimmer"></div>
+  </div>
+</template>
+
+<!-- 7. Show More Filters -->
+<template id="show-more-filters">
+  <button type="button"
+          class="show-more-button advance-filter__show-more-options"
+          aria-label="Show more filter options">
+    {{ DUKAAN_LANGUAGE.SHOW_MORE }}
+  </button>
+</template>
+
+<!-- 8. Main Product Card (Corrected ID to Class) -->
+<template id="advance-filter__product-card">
+  <article class="advance-filter__product-card flex d-column j-sb" itemtype="http://schema.org/Product" itemscope>
+    <div class="flex d-column">
+      <!-- Image Section -->
+      <div class="product-image-container" style="position: relative;">
+        <a class="advance-filter__card-img" href="#" itemprop="url">
+          <!-- Carousel -->
+          <section class="splide dkn-product-card-image-carousel-wrapper"
+                   id="dkn-product-card-image-carousel-wrapper">
+            <div class="splide__track">
+              <ul class="splide__list dkn-product-card-image-carousel">
+                <!-- product-splide-images will come here -->
+              </ul>
+            </div>
+            <div class="splide-progress-bar dkn-product-card-image-carousel-progress-bar"></div>
+          </section>
+          
+          <!-- Static Image Fallback -->
+          <div class="dkn-product-card-only-image-wrapper">
+            <!-- CORRECTED: Removed 'id' to prevent duplicates, kept class -->
+            <img loading="lazy"
+                 src=""
+                 class="dkn-product-card-image product-card-img"
+                 alt="{{ DUKAAN_LANGUAGE.PRODUCT_IMAGE }}"
+                 onerror="imageOnError(event)"
+                 itemprop="image"/>
+          </div>
+          
+          <!-- BXGY Badge -->
+          <div class="dkn-product-card-bxgy-badge bxgy-badge-booster hidden"
+               data-product-id
+               data-product-uuid></div>
+        </a>
+
+        <!-- Wishlist Button -->
+        <wishlist-button-load-point
+          data-product-uuid=""
+          data-template-id="heart-wishlist-button-template"
+          class="hidden">
+          <button disabled
+                  type="button"
+                  data-wishlist-button-state="unselected"
+                  aria-label="Add to Wishlist">
+            <div class="wishlist-svg-wrapper">
+              <svg width="20" height="17" aria-hidden="true">
+                <use xlink:href="/assets/wishlist.svg#unfilled-wishlist-icon"></use>
+              </svg>
+            </div>
+          </button>
+        </wishlist-button-load-point>
+      </div>
+
+      <!-- Product Info -->
+      <a class="product-title advance-filter__card-title dkn-product-card-name" href="#" itemprop="name"></a>
+      
+      <a class="advance-filter__card-price dkn-product-card-price-label" href="#">
+        <p class="selling-price advance-filter__card-selling-price dkn-product-card-selling-price" itemprop="price"></p>
+        <p class="original-price advance-filter__card-original-price dkn-product-card-original-price"></p>
+      </a>
+      
+      <span class="discount-badge advance-filter__card-discount-badge dkn-product-card-discount"></span>
+      
+      <h4 class="dkn-sold-out-label out-of-stock-label hidden">{{ DUKAAN_LANGUAGE.SOLD_OUT }}</h4>
+    </div>
+
+    <!-- Add to Bag Section -->
+    <add-to-bag-button-with-variants
+      data-product-uuid=""
+      data-add-event="CATEGORY_PAGE_PRODUCT_ADDED">
+      <div class="add-to-bag-button-wrapper">
+        <button class="without-cart-add-to-bag-button btn-primary" 
+                type="button"
+                aria-label="{{ DUKAAN_LANGUAGE.ADD_TO_BAG }}">
+          {{ DUKAAN_LANGUAGE.ADD_TO_BAG }}
+        </button>
+      </div>
+    </add-to-bag-button-with-variants>
+  </article>
+</template>
+
+<!-- 9. Filter Block -->
+<template id="filter-block">
+  <div class="block-container advance-filter__block">
+    <h4 class="block-title advance-filter__filter-title"></h4>
+    <div class="search-box-wrapper"></div>
+    <div class="filter-checkbox-wrapper"></div>
+  </div>
+</template>
+
+<!-- 10. Advanced Filters Sidebar (Form Logic Fixed) -->
+<template id="advanced-filters">
+  <!-- The main form wrapper -->
+  <form class="advance-filter__filter-wrapper"
+        id="advance-filter-form"
+        aria-label="Product Filters">
+        
+    <div class="advance-filter__block">
+      <h3 class="advance-filter__title">{{ DUKAAN_LANGUAGE.FILTERS }}</h3>
+      
+      <button type="button"
+              id="close-filter"
+              class="advance-filter__close-button"
+              aria-label="Close filters">
+        <svg width="24"
+             height="24"
+             viewBox="0 0 24 24"
+             fill="none"
+             xmlns="http://www.w3.org/2000/svg"
+             aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M19.2803 4.71967C19.5732 5.01256 19.5732 5.48744 19.2803 5.78033L5.78033 19.2803C5.48744 19.5732 5.01256 19.5732 4.71967 19.2803C4.42678 18.9874 4.42678 18.5126 4.71967 18.2197L18.2197 4.71967C18.5126 4.42678 18.9874 4.42678 19.2803 4.71967Z" fill="#1A181E"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M4.71967 4.71967C5.01256 4.42678 5.48744 4.42678 5.78033 4.71967L19.2803 18.2197C19.5732 18.5126 19.5732 18.9874 19.2803 19.2803C18.9874 19.5732 18.5126 19.5732 18.2197 19.2803L4.71967 5.78033C4.42678 5.48744 4.42678 5.01256 4.71967 4.71967Z" fill="#1A181E"/>
+        </svg>
+      </button>
+      
+      <button type="button"
+              id="clear-filters"
+              class="advance-filter__clear-button"
+              aria-label="Clear all filters">
+        {{ DUKAAN_LANGUAGE.CLEAR_ALL }}
+      </button>
+    </div>
+
+    <!-- Shimmer Loading Loop -->
+    {% for i in range(0,2) %}
+      <div class="block-container advance-filter__block" aria-hidden="true">
+        <div class="shimmer advance-filter__filter-title--shimmer"></div>
+        <div class="shimmer advance-filter__checkbox-container--shimmer"></div>
+        <div class="shimmer advance-filter__checkbox-container--shimmer"></div>
+        <div class="shimmer advance-filter__checkbox-container--shimmer"></div>
+        <div class="shimmer advance-filter__checkbox-container--shimmer"></div>
+      </div>
+    {% endfor %}
+  </form>
+
+  <!-- Filter Action Buttons -->
+  <!-- CORRECTED: Added form="advance-filter-form" to the submit button -->
+  <div id="filter-ctas"
+       class="advance-filter__filter-ctas">
+    <button type="button"
+            class="advance-filter__filter-cta advance-filter__clear-cta"
+            id="clear-filter-cta">
+      {{ DUKAAN_LANGUAGE.CLEAR }}
+    </button>
+    <button type="submit"
+            form="advance-filter-form"
+            class="advance-filter__filter-cta advance-filter__apply-cta"
+            id="submit-filter-cta">
+      {{ DUKAAN_LANGUAGE.APPLY }}
+    </button>
+  </div>
+</template>

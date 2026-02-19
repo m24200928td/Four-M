@@ -1,0 +1,120 @@
+:root {
+  --sticky-footer-bottom: 0;
+}
+
+.menu-sticky-inner a.home-bottom {
+  color: var(--primary);
+}
+.home-white,
+.shop-active {
+  display: none;
+}
+.home-active,
+.shop-white {
+  display: block;
+}
+.menu-sticky-bottom {
+  display: none;
+}
+.product-card {
+  flex-basis: 25%;
+  padding: 8px;
+}
+.product-card .shimmer:last-of-type {
+  display: none;
+}
+
+.product-image.shimmer {
+  height: 275px;
+  width: 100%;
+}
+.productImage {
+  height: 100% !important;
+}
+
+.less-images-container .splide__arrows .splide__arrow--prev, .less-images-container .splide__arrows .splide__arrow--next {
+  display: none;
+}
+
+.splide-video-icon-image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  pointer-events: auto;
+}
+
+.splide-video-icon-image-wrapper .product-image-ytplayer { display: block; }
+
+.splide-video-icon-image-wrapper .video-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.less-images-container .detail-image-slider #thumbnail-carousel {
+  align-items: flex-start;
+}
+
+.best-price {
+  font-weight: 500 !important;
+}
+
+.tandc {
+  font-weight: 400;
+}
+
+.size-chart-tag {
+  cursor: pointer;
+  font-weight: 500;
+}
+.variant-type-section .variant-type-header {
+  margin-bottom: 0px;
+}
+
+@media screen and (max-width: 767px) {
+  .header-top,
+  .header-section {
+    display: none;
+  }
+  .product-card {
+    flex-basis: 50%;
+    padding: 6px;
+  }
+
+  .seller-box-main{
+    flex-wrap: wrap !important;
+  }
+  .pdp-button-wrapper {
+    position: sticky;
+    bottom: var(--container-bottom-sticky);
+    background: white;
+    border-top: 1px solid #d9d9d9;
+    padding: 16px;
+    margin-right: -16px;
+    margin-left: -16px;
+  }
+}
+
+.dukaan_plugins-countdown_timer .adv-countdown-timer {
+  margin-top: 32px;
+}
+@media screen and (max-width: 1024px) {
+  .dukaan_plugins-countdown_timer .adv-countdown-timer {
+    margin-top: 0px;
+  } 
+  #thumbnail-carousel .thumbnails{
+    flex-wrap: wrap;
+    margin-top: 12px !important;
+    padding: 0 16px !important;
+  }
+  #thumbnail-carousel .thumbnail-image {
+    flex-basis: calc(12.5% - 8px);
+    margin-right: 8px !important;  
+    margin-bottom: 8px !important;
+    height: auto !important;
+    width: auto !important;
+  }
+}

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Four M - E-Commerce Header</title>
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --header-bg: #005f6b; 
+            --subnav-bg: #00404a;
+            --header-text: #ffffff;
+            --text-muted: #cccccc;
+            --link-hover: #ffffff;
+            --accent-color: #38bdf8; 
+            --focus-color: #38bdf8; 
+            --header-height: 60px;
+            --subnav-height: 40px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #eaeded;
+            padding-top: var(--header-height);
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- Main Header Container --- */
+        .site-header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        /* --- 1. Left: Logo Area --- */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: border 0.2s;
+            flex-shrink: 0;
+            z-index: 1002;
+        }
+
+        .logo-container:hover {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .logo-img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            margin-right: 8px;
+            display: block;
+        }
+
+        .brand-text {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            color: #fff;
+            line-height: 1;
+        }
+
+        /* --- 2. Center: Search Bar Area --- */
+        .search-area-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: 40px;
+        }
+
+        .search-container {
+            display: flex;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #fff;
+            transition: box-shadow 0.2s;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .search-container:focus-within {
+            box-shadow: 0 0 0 3px var(--focus-color);
+        }
+
+        .search-select {
+            background-color: #f3f3f3;
+            border: none;
+            border-right: 1px solid #cdcdcd;
+            color: #555;
+            padding: 0 10px;
+            font-size: 12px;
+            cursor: pointer;
+            outline: none;
+            width: auto;
+            min-width: 50px;
+            text-align: center;
+            border-radius: 4px 0 0 4px;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .select-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .select-wrapper::after {
+            content: "▾";
+            font-size: 10px;
+            color: #555;
+            margin-left: 5px;
+            pointer-events: none;
+            margin-right: 8px;
+        }
+
+        .search-select:hover {
+            background-color: #dadada;
+            color: #000;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            padding: 0 10px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-button {
+            background-color: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0 4px 4px 0;
+            transition: background 0.2s;
+        }
+
+        .search-button:hover {
+            background-color: #f3a847;
+        }
+
+        .search-button svg {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+        }
+
+        /* Mobile Search Trigger Button */
+        .mobile-search-trigger {
+            display: none;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid transparent;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .mobile-search-trigger svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Mobile Close Button */
+        .mobile-close-btn {
+            display: none;
+            background: #febd69;
+            border: none;
+            width: 45px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* --- 3. Right: Nav Tools --- */
+        .nav-tools {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            z-index: 1002;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 8px 9px;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: border 0.2s;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .nav-line-1 {
+            font-size: 12px;
+            line-height: 14px;
+            color: var(--text-muted);
+        }
+
+        .nav-line-2 {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 15px;
+            color: var(--header-text);
+        }
+
+        /* Cart Icon */
+        .cart-wrapper {
+            display: flex;
+            align-items: flex-end;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: border 0.2s;
+            text-decoration: none;
+        }
+
+        .cart-wrapper:hover {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .cart-icon-svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--header-text);
+            stroke-width: 2;
+        }
+
+        .cart-text {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 6px;
+            margin-left: 2px;
+        }
+
+        .cart-count {
+            color: var(--accent-color);
+            margin-left: -20px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Login / Account Icon */
+        .login-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+            color: var(--header-text);
+            transition: border 0.2s;
+            text-decoration: none;
+        }
+
+        .login-wrapper:hover {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .login-icon-svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--header-text);
+            margin-left: 5px;
+        }
+
+        /* --- Sub Navigation Bar --- */
+        .sub-nav {
+            background-color: var(--subnav-bg);
+            color: var(--header-text);
+            height: var(--subnav-height);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 14px;
+            border-bottom: 1px solid #003540; 
+            position: relative; /* Important for absolute positioning of children */
+            z-index: 998;
+        }
+
+        .sub-nav-content {
+            max-width: 1500px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+            white-space: nowrap;
+        }
+
+        .menu-trigger {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 8px 10px;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            height: 100%;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .menu-trigger:hover, .menu-trigger.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .hamburger-icon {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            margin-right: 5px;
+        }
+
+        .hamburger-icon span {
+            width: 18px;
+            height: 2px;
+            background-color: white;
+            display: block;
+        }
+
+        .sub-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .sub-nav-links a {
+            padding: 5px 8px;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: border 0.2s;
+            flex-shrink: 0;
+        }
+
+        .sub-nav-links a:hover {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        /* --- MEGA MENU ROW (Overlay Style) --- */
+        .mega-menu-row {
+            display: none; /* Hidden by default */
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px 0;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            
+            /* CHANGED: Absolute positioning to overlay content */
+            position: absolute;
+            top: 100%; /* Directly below the sub-nav bar */
+            left: 0;
+            width: 100%; /* Full width */
+            z-index: 9999; /* Above everything */
+            
+            animation: slideDown 0.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mega-menu-grid {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .mega-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+            color: #333;
+        }
+
+        .mega-item:hover {
+            background-color: #f5f5f5;
+            color: var(--header-bg);
+        }
+
+        .mega-item i {
+            font-size: 18px;
+            color: var(--header-bg);
+        }
+
+        .mega-item span {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1100px) {
+            .nav-line-1 { display: none; }
+            .nav-item { min-width: 50px; justify-content: center; }
+            .login-wrapper span { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-item, .cart-wrapper {
+                display: none;
+            }
+
+            .login-wrapper {
+                display: flex;
+                padding: 5px;
+            }
+            
+            .login-icon-svg {
+                margin-left: 0;
+                width: 26px;
+                height: 26px;
+            }
+
+            .logo-img {
+                height: 35px;
+                margin-right: 5px;
+            }
+
+            .brand-text {
+                font-size: 16px;
+            }
+            
+            /* --- MOBILE SEARCH LOGIC --- */
+            
+            /* 1. Hide default search bar initially */
+            .search-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 0; /* Start hidden */
+                opacity: 0;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                z-index: 1001;
+                border-radius: 4px;
+            }
+
+            /* 2. Hide Select on mobile */
+            .search-select {
+                display: none;
+            }
+            .select-wrapper {
+                display: none;
+            }
+            .select-wrapper::after {
+                display: none;
+            }
+
+            /* 3. Show Trigger Icon */
+            .mobile-search-trigger {
+                display: flex;
+            }
+
+            /* 4. When Active Class is added */
+            .search-area-wrapper.active .search-container {
+                width: calc(100% - 80px);
+                opacity: 1;
+                left: 70px; 
+                right: 10px;
+            }
+
+            .search-area-wrapper.active .mobile-search-trigger {
+                display: none; 
+            }
+
+            .search-area-wrapper.active .mobile-close-btn {
+                display: flex;
+            }
+
+            .search-area-wrapper.active ~ .nav-tools .login-wrapper {
+                display: none;
+            }
+
+            /* Mobile Sub Nav Scroll */
+            .sub-nav {
+                overflow-x: auto;
+            }
+            
+            /* Important: When menu is open on mobile, allow overflow to see the full menu */
+            .sub-nav.menu-open {
+                overflow: visible;
+            }
+
+            .mega-menu-grid {
+                grid-template-columns: 1fr 1fr; /* 2 columns on mobile */
+            }
+        }
+    </style>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- 1. Main Header Area -->
+    <header class="site-header">
+        <div class="header-content">
+            
+            <!-- Logo Area -->
+            <a href="#" class="logo-container" title="Four M Home">
+                <img src="https://i.ibb.co.com/f3ksZ29/logo-dukan.png" alt="Four M Logo" class="logo-img">
+                <span class="brand-text">Four M</span>
+            </a>
+
+            <!-- Search Area -->
+            <div class="search-area-wrapper" id="searchWrapper">
+                
+                <form action="/search" method="GET" class="search-container">
+                    <div class="select-wrapper">
+                        <select name="category" class="search-select">
+                            <option value="all">All</option>
+                            <option value="men">Men's Fashion</option>
+                            <option value="women">Women's Fashion</option>
+                            <option value="beauty">Beauty</option>
+                            <option value="gadgets">Gadgets</option>
+                        </select>
+                    </div>
+                    
+                    <input type="text" name="q" class="search-input" placeholder="Search Four M">
+                    
+                    <button type="submit" class="search-button" aria-label="Search">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+
+                    <button type="button" class="mobile-close-btn" id="closeSearch" aria-label="Close Search">
+                        &times;
+                    </button>
+                </form>
+
+                <button class="mobile-search-trigger" id="openSearch" aria-label="Open Search">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Nav Tools -->
+            <div class="nav-tools">
+                <a href="#orders" class="nav-item" title="Returns & Orders">
+                    <span class="nav-line-1">Returns</span>
+                    <span class="nav-line-2">& Orders</span>
+                </a>
+
+                <a href="#cart" class="cart-wrapper" title="View Cart">
+                    <div class="cart-count">0</div>
+                    <svg class="cart-icon-svg" viewBox="0 0 24 24">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-text">Cart</span>
+                </a>
+
+                <a href="#account" class="login-wrapper" title="My Account">
+                    <span>Account</span>
+                    <svg class="login-icon-svg" viewBox="0 0 24 24">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- 3. Sub Navigation Bar (Registry, Gift Cards...) -->
+    <!-- MOVED MEGA MENU INSIDE SUB-NAV FOR POSITIONING -->
+    <nav class="sub-nav" id="subNav">
+        <div class="sub-nav-content">
+            <!-- "All" Button triggers the row above -->
+            <div class="menu-trigger" id="categoryMenu">
+                <div class="hamburger-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                All
+            </div>
+
+            <div class="sub-nav-links">
+                <a href="https://mydukaan.io/fourm3/p/popular's-deals">Popular's Deals</a>
+                <a href="https://mydukaan.io/fourm3/p/new-arivals">New Arrivals</a>
+                <a href="https://m24200928td.github.io/help-center/">Customer Service</a>
+                <a href="#">Registry</a>
+                <a href="#">Gift Cards</a>
+            </div>
+        </div>
+
+        <!-- 2. MEGA MENU ROW (Now Absolute Positioned Overlay) -->
+        <div class="mega-menu-row" id="megaMenuRow">
+            <div class="mega-menu-grid">
+                <!-- Categories -->
+                <a href="#" class="mega-item"><i class="fas fa-tshirt"></i> <span>Men's Fashion</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-female"></i> <span>Women's Fashion</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-laptop"></i> <span>Electronics</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-home"></i> <span>Home & Lifestyle</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-spa"></i> <span>Beauty & Health</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-shopping-basket"></i> <span>Groceries</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-running"></i> <span>Sports & Outdoor</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-baby"></i> <span>Baby & Kids</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-graduation-cap"></i> <span>Educational Accessories</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-heartbeat"></i> <span>Health</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-mobile-alt"></i> <span>Gadgets</span></a>
+                <a href="#" class="mega-item"><i class="fas fa-book"></i> <span>Books</span></a>
+            </div>
+        </div>
+    </nav>
+
+   
+
+    <!-- JavaScript -->
+    <script>
+        // 1. Mobile Search Toggle
+        const openSearchBtn = document.getElementById('openSearch');
+        const closeSearchBtn = document.getElementById('closeSearch');
+        const searchWrapper = document.getElementById('searchWrapper');
+
+        if(openSearchBtn) {
+            openSearchBtn.addEventListener('click', () => {
+                searchWrapper.classList.add('active');
+                setTimeout(() => {
+                    searchWrapper.querySelector('input').focus();
+                }, 300);
+            });
+        }
+
+        if(closeSearchBtn) {
+            closeSearchBtn.addEventListener('click', () => {
+                searchWrapper.classList.remove('active');
+            });
+        }
+
+        // 2. Mega Menu Toggle (Overlay)
+        const menuTrigger = document.getElementById('categoryMenu');
+        const megaMenuRow = document.getElementById('megaMenuRow');
+        const subNav = document.getElementById('subNav');
+
+        if(menuTrigger && megaMenuRow) {
+            menuTrigger.addEventListener('click', function(e) {
+                // Toggle active class
+                this.classList.toggle('active');
+                
+                // Toggle display
+                if (megaMenuRow.style.display === 'block') {
+                    megaMenuRow.style.display = 'none';
+                    subNav.classList.remove('menu-open'); // Restore scroll on mobile
+                } else {
+                    megaMenuRow.style.display = 'block';
+                    subNav.classList.add('menu-open'); // Allow overflow on mobile
+                }
+                
+                e.stopPropagation(); 
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!menuTrigger.contains(e.target) && !megaMenuRow.contains(e.target)) {
+                    megaMenuRow.style.display = 'none';
+                    menuTrigger.classList.remove('active');
+                    subNav.classList.remove('menu-open');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
